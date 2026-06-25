@@ -1,0 +1,107 @@
+{
+  "meta": {
+    "title": "SubVault — всі підписки в одному місці",
+    "description": "Відстежуйте місячні та річні підписки. Загальні витрати та розбивка по категоріях."
+  },
+  "nav": {
+    "dashboard": "Дашборд",
+    "login": "Вхід",
+    "signup": "Реєстрація",
+    "logout": "Вийти",
+    "settings": "Налаштування"
+  },
+  "landing": {
+    "badge": "Трекер підписок",
+    "title": "Всі ваші підписки в одному місці",
+    "subtitle": "Netflix, YouTube, Gemini, інтернет та інше — відстежуйте витрати, фільтруйте по категоріях і бачте суму на місяць.",
+    "ctaPrimary": "Почати безкоштовно",
+    "ctaSecondary": "Вхід",
+    "featuresTitle": "Чому SubVault?",
+    "feature1Title": "Один дашборд",
+    "feature1Desc": "Всі підписки з сумою, валютою та датою наступного списання.",
+    "feature2Title": "Аналітика витрат",
+    "feature2Desc": "Сума на місяць і розбивка: стрімінг, AI, софт, ігри та інше.",
+    "feature3Title": "Приватність",
+    "feature3Desc": "Дані ізольовані для кожного акаунта. Тільки ви бачите свої підписки.",
+    "feature4Title": "Мультивалютність",
+    "feature4Desc": "UAH, USD, EUR — підсумки у вашій валюті.",
+    "pricingNote": "Безкоштовно на старті. Преміум-плани з'являться пізніше."
+  },
+  "auth": {
+    "loginTitle": "З поверненням",
+    "signupTitle": "Створіть акаунт",
+    "email": "Email",
+    "password": "Пароль",
+    "loginButton": "Війти",
+    "signupButton": "Зареєструватися",
+    "googleButton": "Продовжити з Google",
+    "noAccount": "Немає акаунта?",
+    "hasAccount": "Вже маєте акаунт?",
+    "signupLink": "Реєстрація",
+    "loginLink": "Вхід",
+    "errorGeneric": "Сталася помилка. Спробуйте ще раз.",
+    "errorNetwork": "Немає з’єднання з Supabase. Перевірте URL і anon key у .env.local, перезапустіть npm run dev.",
+    "checkEmail": "Перевірте email для підтвердження акаунта."
+  },
+  "dashboard": {
+    "title": "Мої підписки",
+    "addSubscription": "Додати підписку",
+    "editSubscription": "Редагувати підписку",
+    "totalMonthly": "На місяць",
+    "totalYearly": "На рік",
+    "byCategory": "По категоріях",
+    "activeCount": "{count} активних",
+    "emptyTitle": "Ще немає підписок",
+    "emptyDesc": "Додайте першу підписку або оберіть шаблон нижче.",
+    "limitWarning": "Безкоштовний план: до {limit} підписок. Преміум скоро.",
+    "conversionNote": "Конвертовано в {currency} по наближеним курсам."
+  },
+  "subscription": {
+    "name": "Назва",
+    "amount": "Сума",
+    "currency": "Валюта",
+    "billingPeriod": "Період",
+    "monthly": "Місяць",
+    "yearly": "Рік",
+    "category": "Категорія",
+    "status": "Статус",
+    "active": "Активна",
+    "cancelled": "Скасована",
+    "trial": "Пробний",
+    "nextBilling": "Наступне списання",
+    "notes": "Нотатки",
+    "save": "Зберегти",
+    "cancel": "Скасувати",
+    "delete": "Видалити",
+    "deleteConfirm": "Видалити цю підписку?",
+    "perMonth": "/міс",
+    "perYear": "/рік",
+    "templates": "Швидке додавання",
+    "noResults": "Немає підписок за вашими фільтрами."
+  },
+  "categories": {
+    "streaming": "Стрімінг",
+    "internet": "Інтернет",
+    "ai": "AI",
+    "software": "Софт",
+    "games": "Ігри",
+    "other": "Інше",
+    "all": "Всі категорії"
+  },
+  "filters": {
+    "search": "Пошук по назві…",
+    "category": "Категорія",
+    "status": "Статус",
+    "billing": "Період",
+    "all": "Всі",
+    "sortBy": "Сортування",
+    "sortAmount": "Сума",
+    "sortName": "Назва",
+    "sortDate": "Дата списання"
+  },
+  "settings": {
+    "title": "Налаштування",
+    "displayCurrency": "Валюта відображення",
+    "save": "Зберегти"
+  }
+}

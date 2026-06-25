@@ -1,0 +1,107 @@
+{
+  "meta": {
+    "title": "SubVault — all your subscriptions in one place",
+    "description": "Track monthly and yearly subscriptions. See total spend and breakdown by category."
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "login": "Log in",
+    "signup": "Sign up",
+    "logout": "Log out",
+    "settings": "Settings"
+  },
+  "landing": {
+    "badge": "Subscription tracker",
+    "title": "All your subscriptions in one place",
+    "subtitle": "Netflix, YouTube, Gemini, internet and more — track spending, filter by category, and see your monthly total.",
+    "ctaPrimary": "Get started free",
+    "ctaSecondary": "Log in",
+    "featuresTitle": "Why SubVault?",
+    "feature1Title": "One dashboard",
+    "feature1Desc": "All subscriptions with amount, currency, and renewal date.",
+    "feature2Title": "Spending analytics",
+    "feature2Desc": "Monthly total and breakdown by streaming, AI, software, games, and more.",
+    "feature3Title": "Private & secure",
+    "feature3Desc": "Your data is isolated per account. Only you can see your subscriptions.",
+    "feature4Title": "Multi-currency",
+    "feature4Desc": "UAH, USD, EUR — totals in your preferred currency.",
+    "pricingNote": "Free while we grow. Premium plans coming later."
+  },
+  "auth": {
+    "loginTitle": "Welcome back",
+    "signupTitle": "Create your account",
+    "email": "Email",
+    "password": "Password",
+    "loginButton": "Log in",
+    "signupButton": "Create account",
+    "googleButton": "Continue with Google",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "signupLink": "Sign up",
+    "loginLink": "Log in",
+    "errorGeneric": "Something went wrong. Please try again.",
+    "errorNetwork": "Cannot reach Supabase. Check .env.local URL and anon key, then restart npm run dev.",
+    "checkEmail": "Check your email to confirm your account."
+  },
+  "dashboard": {
+    "title": "My subscriptions",
+    "addSubscription": "Add subscription",
+    "editSubscription": "Edit subscription",
+    "totalMonthly": "Monthly total",
+    "totalYearly": "Yearly equivalent",
+    "byCategory": "By category",
+    "activeCount": "{count} active",
+    "emptyTitle": "No subscriptions yet",
+    "emptyDesc": "Add your first subscription or pick a template below.",
+    "limitWarning": "Free plan: up to {limit} subscriptions. Upgrade coming soon.",
+    "conversionNote": "Converted to {currency} at approximate rates."
+  },
+  "subscription": {
+    "name": "Name",
+    "amount": "Amount",
+    "currency": "Currency",
+    "billingPeriod": "Billing period",
+    "monthly": "Monthly",
+    "yearly": "Yearly",
+    "category": "Category",
+    "status": "Status",
+    "active": "Active",
+    "cancelled": "Cancelled",
+    "trial": "Trial",
+    "nextBilling": "Next billing date",
+    "notes": "Notes",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "deleteConfirm": "Delete this subscription?",
+    "perMonth": "/mo",
+    "perYear": "/yr",
+    "templates": "Quick add",
+    "noResults": "No subscriptions match your filters."
+  },
+  "categories": {
+    "streaming": "Streaming",
+    "internet": "Internet",
+    "ai": "AI",
+    "software": "Software",
+    "games": "Games",
+    "other": "Other",
+    "all": "All categories"
+  },
+  "filters": {
+    "search": "Search by name…",
+    "category": "Category",
+    "status": "Status",
+    "billing": "Billing",
+    "all": "All",
+    "sortBy": "Sort by",
+    "sortAmount": "Amount",
+    "sortName": "Name",
+    "sortDate": "Next billing"
+  },
+  "settings": {
+    "title": "Settings",
+    "displayCurrency": "Display currency",
+    "save": "Save changes"
+  }
+}
