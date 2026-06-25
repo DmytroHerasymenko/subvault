@@ -23,7 +23,7 @@ export function DashboardStats({
 }) {
   const t = useTranslations("dashboard");
   const tc = useTranslations("categories");
-  const intlLocale = locale === "uk" ? "uk-UA" : "en-US";
+  const intlLocale = locale === "ua" ? "uk-UA" : "en-US";
 
   const maxCategory = Math.max(...Object.values(byCategory), 1);
 

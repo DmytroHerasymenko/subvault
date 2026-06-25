@@ -6,7 +6,7 @@ create table if not exists public.profiles (
   id uuid references auth.users on delete cascade primary key,
   display_name text,
   preferred_currency text not null default 'UAH' check (preferred_currency in ('UAH', 'USD', 'EUR')),
-  locale text not null default 'uk' check (locale in ('uk', 'en')),
+  locale text not null default 'ua' check (locale in ('ua', 'en')),
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );

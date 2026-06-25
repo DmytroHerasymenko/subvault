@@ -45,7 +45,7 @@ export function DashboardClient({
     convertedById: Record<string, number>;
   } | null>(null);
 
-  const intlLocale = locale === "uk" ? "uk-UA" : "en-US";
+  const intlLocale = locale === "ua" ? "uk-UA" : "en-US";
 
   const filtered = useMemo(() => {
     let list = [...subscriptions];

@@ -11,7 +11,7 @@ export function LanguageSwitcher() {
 
   function switchLocale(next: string) {
     const segments = pathname.split("/");
-    if (locales.includes(segments[1] as "uk" | "en")) {
+    if (locales.includes(segments[1] as "ua" | "en")) {
       segments[1] = next;
     } else {
       segments.splice(1, 0, next);

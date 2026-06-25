@@ -14,6 +14,15 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
+  const pathname = request.nextUrl.pathname;
+
+  // Legacy locale path: redirect /uk → /ua
+  if (pathname === "/uk" || pathname.startsWith("/uk/")) {
+    const url = request.nextUrl.clone();
+    url.pathname = pathname.replace(/^\/uk/, "/ua");
+    return NextResponse.redirect(url);
+  }
+
   const response = intlMiddleware(request);
 
   const supabase = createServerClient(
@@ -37,8 +46,7 @@ export async function middleware(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const pathname = request.nextUrl.pathname;
-  const localeMatch = pathname.match(/^\/(uk|en)(\/|$)/);
+  const localeMatch = pathname.match(/^\/(ua|en)(\/|$)/);
   const locale = localeMatch?.[1] ?? defaultLocale;
   const pathWithoutLocale = localeMatch
     ? pathname.replace(`/${locale}`, "") || "/"

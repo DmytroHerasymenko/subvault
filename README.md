@@ -47,14 +47,42 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000/uk](http://localhost:3000/uk)
+Open [http://localhost:3000/ua](http://localhost:3000/ua)
 
 ### 4. Deploy on Vercel (free)
 
-1. Push to GitHub
-2. Import project on [vercel.com](https://vercel.com)
-3. Add the same env vars (use production URL for `NEXT_PUBLIC_SITE_URL`)
-4. Update Supabase redirect URLs with your Vercel domain
+1. Push this repo to GitHub (see below)
+2. Go to [vercel.com/new](https://vercel.com/new) → Import Git Repository
+3. Select the repo → Framework: **Next.js** (auto-detected)
+4. **Environment Variables** (add all three):
+
+| Name | Value |
+|------|--------|
+| `NEXT_PUBLIC_SUPABASE_URL` | `https://bjpudauocwqlavwdinnt.supabase.co` |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | your anon key from Supabase |
+| `NEXT_PUBLIC_SITE_URL` | `https://YOUR-APP.vercel.app` (set after first deploy, then redeploy) |
+
+5. Click **Deploy**
+6. After deploy, copy your Vercel URL (e.g. `https://subvault-xxx.vercel.app`)
+7. Update **NEXT_PUBLIC_SITE_URL** in Vercel → Settings → Environment Variables → **Redeploy**
+8. Update **Supabase** → Authentication → URL Configuration:
+   - Site URL: `https://YOUR-APP.vercel.app`
+   - Redirect URLs: `https://YOUR-APP.vercel.app/auth/callback`
+9. **Google OAuth** (if used): add the same Supabase callback URL in Google Cloud Console
+
+**Push to GitHub (one time):**
+
+```bash
+cd C:\Users\mcdim\Projects\subvault
+gh repo create subvault --public --source=. --remote=origin --push
+```
+
+Or create an empty repo on GitHub and:
+
+```bash
+git remote add origin https://github.com/DmytroHerasymenko/subvault.git
+git push -u origin master
+```
 
 ## Monetization (planned)
 
@@ -66,11 +94,11 @@ Open [http://localhost:3000/uk](http://localhost:3000/uk)
 
 ```
 src/
-  app/[locale]/     # Pages (uk, en)
+  app/[locale]/     # Pages (ua, en)
   components/       # UI, dashboard, auth
   lib/              # Supabase, types, exchange rates
   i18n/             # next-intl config
-messages/           # uk.json, en.json
+messages/           # ua.json, en.json
 supabase/schema.sql # Database + RLS
 ```
 
