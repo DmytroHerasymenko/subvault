@@ -7,6 +7,24 @@ import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import type { AuthError } from "@supabase/supabase-js";
+
+function isAlreadyRegistered(error: AuthError) {
+  const msg = error.message.toLowerCase();
+  return (
+    error.code === "user_already_exists" ||
+    msg.includes("already registered") ||
+    msg.includes("already exists") ||
+    msg.includes("user already")
+  );
+}
+
+function isExistingSignupUser(data: {
+  user: { identities?: unknown[] } | null;
+  session: unknown;
+}) {
+  return Boolean(data.user?.identities && data.user.identities.length === 0);
+}
 
 export function AuthForm({ locale, mode }: { locale: string; mode: "login" | "signup" }) {
   const t = useTranslations("auth");
@@ -15,6 +33,10 @@ export function AuthForm({ locale, mode }: { locale: string; mode: "login" | "si
   const [error, setError] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+
+  function siteUrl() {
+    return process.env.NEXT_PUBLIC_SITE_URL || window.location.origin;
+  }
 
   async function handleEmailAuth(e: React.FormEvent) {
     e.preventDefault();
@@ -30,15 +52,23 @@ export function AuthForm({ locale, mode }: { locale: string; mode: "login" | "si
         if (authError) setError(authError.message);
         else window.location.href = `/${locale}/dashboard`;
       } else {
-        const { error: authError } = await supabase.auth.signUp({
+        const { data, error: authError } = await supabase.auth.signUp({
           email,
           password,
           options: {
-            emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/auth/callback`,
+            emailRedirectTo: `${siteUrl()}/auth/callback`,
           },
         });
-        if (authError) setError(authError.message);
-        else setMessage(t("checkEmail"));
+        if (authError) {
+          if (isAlreadyRegistered(authError)) setError(t("emailAlreadyRegistered"));
+          else setError(authError.message);
+        } else if (isExistingSignupUser(data)) {
+          setError(t("emailAlreadyRegistered"));
+        } else if (data.session) {
+          window.location.href = `/${locale}/dashboard`;
+        } else {
+          setMessage(t("checkEmail"));
+        }
       }
     } catch {
       setError(t("errorNetwork"));
@@ -52,7 +82,7 @@ export function AuthForm({ locale, mode }: { locale: string; mode: "login" | "si
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-          redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/auth/callback`,
+          redirectTo: `${siteUrl()}/auth/callback`,
         },
       });
       if (error) setError(error.message);
@@ -92,7 +122,12 @@ export function AuthForm({ locale, mode }: { locale: string; mode: "login" | "si
           />
         </div>
         {error && <p className="text-sm text-destructive">{error}</p>}
-        {message && <p className="text-sm text-success">{message}</p>}
+        {message && (
+          <div className="space-y-1">
+            <p className="text-sm text-success">{message}</p>
+            <p className="text-xs text-muted-foreground">{t("checkEmailHint")}</p>
+          </div>
+        )}
         <Button type="submit" className="w-full" disabled={loading}>
           {mode === "login" ? t("loginButton") : t("signupButton")}
         </Button>

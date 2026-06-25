@@ -41,7 +41,9 @@
     "loginLink": "Log in",
     "errorGeneric": "Something went wrong. Please try again.",
     "errorNetwork": "Cannot reach Supabase. Check .env.local URL and anon key, then restart npm run dev.",
-    "checkEmail": "Check your email to confirm your account."
+    "checkEmail": "Check your email to confirm your account.",
+    "checkEmailHint": "Check your spam folder if you don't see the email within a few minutes.",
+    "emailAlreadyRegistered": "This email is already registered. Please log in instead."
   },
   "dashboard": {
     "title": "My subscriptions",

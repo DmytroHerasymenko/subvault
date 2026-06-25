@@ -41,7 +41,9 @@
     "loginLink": "Вхід",
     "errorGeneric": "Сталася помилка. Спробуйте ще раз.",
     "errorNetwork": "Немає з’єднання з Supabase. Перевірте URL і anon key у .env.local, перезапустіть npm run dev.",
-    "checkEmail": "Перевірте email для підтвердження акаунта."
+    "checkEmail": "Перевірте email для підтвердження акаунта.",
+    "checkEmailHint": "Якщо листа немає за кілька хвилин — перевірте спам.",
+    "emailAlreadyRegistered": "Цей email уже зареєстрований. Спробуйте Вхід."
   },
   "dashboard": {
     "title": "Мої підписки",
