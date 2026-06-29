@@ -33,6 +33,7 @@ export function AuthForm({ locale, mode }: { locale: string; mode: "login" | "si
   const [error, setError] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
 
   function siteUrl() {
     return process.env.NEXT_PUBLIC_SITE_URL || window.location.origin;
@@ -43,6 +44,12 @@ export function AuthForm({ locale, mode }: { locale: string; mode: "login" | "si
     setLoading(true);
     setError(null);
     setMessage(null);
+
+    if (mode === "signup" && !acceptedTerms) {
+      setError(t("acceptTermsRequired"));
+      setLoading(false);
+      return;
+    }
 
     try {
       const supabase = createClient();
@@ -78,6 +85,10 @@ export function AuthForm({ locale, mode }: { locale: string; mode: "login" | "si
 
   async function handleGoogle() {
     setError(null);
+    if (mode === "signup" && !acceptedTerms) {
+      setError(t("acceptTermsRequired"));
+      return;
+    }
     setLoading(true);
     try {
       const supabase = createClient();
@@ -130,6 +141,26 @@ export function AuthForm({ locale, mode }: { locale: string; mode: "login" | "si
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
+        {mode === "signup" && (
+          <label className="flex items-start gap-2 text-sm text-muted-foreground">
+            <input
+              type="checkbox"
+              className="mt-1"
+              checked={acceptedTerms}
+              onChange={(e) => setAcceptedTerms(e.target.checked)}
+            />
+            <span>
+              {t("acceptTermsPrefix")}{" "}
+              <Link href={`/${locale}/terms`} className="text-primary hover:underline">
+                {t("termsLink")}
+              </Link>{" "}
+              {t("acceptTermsAnd")}{" "}
+              <Link href={`/${locale}/privacy`} className="text-primary hover:underline">
+                {t("privacyLink")}
+              </Link>
+            </span>
+          </label>
+        )}
         {error && <p className="text-sm text-destructive">{error}</p>}
         {message && (
           <div className="space-y-1">

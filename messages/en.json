@@ -44,7 +44,12 @@
     "checkEmail": "Check your email to confirm your account.",
     "checkEmailHint": "Check your spam folder if you don't see the email within a few minutes.",
     "emailAlreadyRegistered": "This email is already registered. Please log in instead.",
-    "googleNotEnabled": "Google sign-in is not enabled. Enable Google in Supabase → Authentication → Providers."
+    "googleNotEnabled": "Google sign-in is not enabled. Enable Google in Supabase → Authentication → Providers.",
+    "acceptTermsPrefix": "I accept the",
+    "acceptTermsRequired": "Please accept the Terms and Privacy Policy to continue.",
+    "termsLink": "Terms of Service",
+    "privacyLink": "Privacy Policy",
+    "acceptTermsAnd": "and"
   },
   "dashboard": {
     "title": "My subscriptions",
@@ -105,6 +110,26 @@
   "settings": {
     "title": "Settings",
     "displayCurrency": "Display currency",
-    "save": "Save changes"
+    "save": "Save changes",
+    "saved": "Saved!",
+    "deleteTitle": "Delete account",
+    "deleteDesc": "Permanently delete your account and all subscriptions. This cannot be undone.",
+    "deleteButton": "Delete my account",
+    "deleteConfirmHint": "Type DELETE to confirm. Account: {email}",
+    "deleteConfirmPlaceholder": "DELETE",
+    "deleteConfirmButton": "Permanently delete",
+    "deleteCancel": "Cancel",
+    "deleteLoading": "Deleting…",
+    "deleteError": "Could not delete account. Please try again or contact support."
+  },
+  "footer": {
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "rights": "© {year} Renulo"
+  },
+  "legal": {
+    "lastUpdated": "Last updated: {date}",
+    "privacyTitle": "Privacy Policy",
+    "termsTitle": "Terms of Service"
   }
 }

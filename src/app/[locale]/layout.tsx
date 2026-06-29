@@ -4,6 +4,7 @@ import { getMessages, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { locales, type AppLocale } from "@/i18n/config";
 import { Header } from "@/components/layout/header";
+import { Footer } from "@/components/layout/footer";
 import { createClient } from "@/lib/supabase/server";
 
 export async function generateMetadata({
@@ -37,6 +38,7 @@ export default async function LocaleLayout({
     <NextIntlClientProvider messages={messages}>
       <Header locale={locale} userEmail={user?.email} />
       <main className="mx-auto max-w-5xl px-4 py-8">{children}</main>
+      <Footer locale={locale} />
     </NextIntlClientProvider>
   );
 }

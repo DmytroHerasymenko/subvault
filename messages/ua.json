@@ -44,7 +44,12 @@
     "checkEmail": "Перевірте email для підтвердження акаунта.",
     "checkEmailHint": "Якщо листа немає за кілька хвилин — перевірте спам.",
     "emailAlreadyRegistered": "Цей email уже зареєстрований. Спробуйте Вхід.",
-    "googleNotEnabled": "Вхід через Google не налаштований. Ввімкніть Google в Supabase → Authentication → Providers."
+    "googleNotEnabled": "Вхід через Google не налаштований. Ввімкніть Google в Supabase → Authentication → Providers.",
+    "acceptTermsPrefix": "Приймаю",
+    "acceptTermsRequired": "Потрібно прийняти Умови та Політику конфіденційності.",
+    "termsLink": "Умови використання",
+    "privacyLink": "Політику конфіденційності",
+    "acceptTermsAnd": "та"
   },
   "dashboard": {
     "title": "Мої підписки",
@@ -105,6 +110,26 @@
   "settings": {
     "title": "Налаштування",
     "displayCurrency": "Валюта відображення",
-    "save": "Зберегти"
+    "save": "Зберегти",
+    "saved": "Збережено!",
+    "deleteTitle": "Видалити акаунт",
+    "deleteDesc": "Назавжди видалити акаунт і всі підписки. Цю дію не можна скасувати.",
+    "deleteButton": "Видалити мій акаунт",
+    "deleteConfirmHint": "Введіть DELETE для підтвердження. Акаунт: {email}",
+    "deleteConfirmPlaceholder": "DELETE",
+    "deleteConfirmButton": "Видалити назавжди",
+    "deleteCancel": "Скасувати",
+    "deleteLoading": "Видалення…",
+    "deleteError": "Не вдалося видалити акаунт. Спробуйте ще раз або напишіть у підтримку."
+  },
+  "footer": {
+    "privacy": "Політика конфіденційності",
+    "terms": "Умови використання",
+    "rights": "© {year} Renulo"
+  },
+  "legal": {
+    "lastUpdated": "Оновлено: {date}",
+    "privacyTitle": "Політика конфіденційності",
+    "termsTitle": "Умови використання"
   }
 }

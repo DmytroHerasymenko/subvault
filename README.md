@@ -37,8 +37,11 @@ Fill in:
 ```
 NEXT_PUBLIC_SUPABASE_URL=...
 NEXT_PUBLIC_SUPABASE_ANON_KEY=...
+SUPABASE_SERVICE_ROLE_KEY=...
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
 ```
+
+`SUPABASE_SERVICE_ROLE_KEY` is required for **Delete account** (Settings). Add it in Vercel env too — **never** prefix with `NEXT_PUBLIC_`.
 
 ### 3. Install & run
 
@@ -64,6 +67,7 @@ See **Phase 1** below for `renulo.vercel.app` (free). **Phase 2** is when you bu
 |------|--------|
 | `NEXT_PUBLIC_SUPABASE_URL` | your Supabase project URL |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | anon key |
+| `SUPABASE_SERVICE_ROLE_KEY` | service role key (account deletion only; server-side) |
 | `NEXT_PUBLIC_SITE_URL` | `https://renulo.vercel.app` |
 
 5. **Deployments** → Redeploy latest (or push to `main` to trigger deploy).

@@ -21,7 +21,9 @@ export default async function SettingsPage({
 
   return (
     <SettingsForm
+      locale={locale}
       userId={user.id}
+      userEmail={user.email ?? ""}
       preferredCurrency={(profile?.preferred_currency as Currency) ?? "UAH"}
     />
   );
