@@ -23,8 +23,9 @@ Track all your subscriptions in one place — Netflix, YouTube, Gemini, internet
 1. Create a project at [supabase.com](https://supabase.com)
 2. SQL Editor → run `supabase/schema.sql`
 3. Authentication → Providers → enable **Email** and **Google**
-4. Authentication → URL Configuration — see **§5** below (use `renulo.vercel.app` first).
-5. Settings → API → copy **Project URL** and **anon public** key
+4. **Custom SMTP** — see **§7** (required for production signup emails; built-in Supabase mail is ~2–6/hour).
+5. Authentication → URL Configuration — see **§5** below (use `renulo.vercel.app` first).
+6. Settings → API → copy **Project URL** and **anon public** key
 
 ### 2. Local env
 
@@ -104,6 +105,50 @@ In [Google Cloud Console](https://console.cloud.google.com/) → your OAuth clie
 - **Authorized redirect URIs:** leave as Supabase callback only, e.g. `https://YOUR_PROJECT_REF.supabase.co/auth/v1/callback` (not your app URL)
 
 Supabase handles the redirect to `/auth/callback` on your site.
+
+### 7. Custom SMTP (Resend — free tier)
+
+Built-in Supabase email is fine for quick tests but hits a low hourly limit. Use your own SMTP before real users sign up.
+
+**Recommended:** [Resend](https://resend.com) (free ~100 emails/day after domain verification).
+
+1. Create a Resend account (use `renulo.app@gmail.com` or your admin email).
+2. **Domains** → add `renulo.app` when you own it → add DNS records → verify.
+   Until then, use **Gmail SMTP** interim (see script below) or disable **Confirm email** for testing only.
+3. **API Keys** → create key → copy `re_...`.
+4. Configure Supabase — **either** dashboard **or** script:
+
+**Dashboard:** Authentication → **SMTP** → Enable custom SMTP
+
+| Field | Resend value |
+|-------|----------------|
+| Host | `smtp.resend.com` |
+| Port | `587` |
+| Username | `resend` |
+| Password | your Resend API key |
+| Sender email | `no-reply@renulo.app` (verified domain) |
+| Sender name | `Renulo` |
+
+Then Authentication → **Rate Limits** → raise **Email sent** (e.g. 100/hour).
+
+**Script (optional):**
+
+```bash
+# Token: https://supabase.com/dashboard/account/tokens
+export SUPABASE_ACCESS_TOKEN=...
+export RESEND_API_KEY=re_...
+export SMTP_FROM_EMAIL=no-reply@renulo.app
+node scripts/configure-supabase-smtp.mjs
+```
+
+**Gmail interim** (any recipient, no domain purchase; use App Password with 2FA):
+
+```bash
+export SMTP_PROVIDER=gmail
+export SMTP_FROM_EMAIL=renulo.app@gmail.com
+export GMAIL_APP_PASSWORD=...
+node scripts/configure-supabase-smtp.mjs
+```
 
 ## Monetization (planned)
 

@@ -41,6 +41,8 @@
     "loginLink": "Вхід",
     "errorGeneric": "Сталася помилка. Спробуйте ще раз.",
     "errorNetwork": "Немає з’єднання з Supabase. Перевірте URL і anon key у .env.local, перезапустіть npm run dev.",
+    "errorEmailRateLimitSignup": "Реєстрація не вдалась. Занадто багато листів — спробуйте ще раз через 60 хвилин.",
+    "errorEmailRateLimit": "Занадто багато запитів на email — спробуйте ще раз через 60 хвилин.",
     "checkEmail": "Перевірте email для підтвердження акаунта.",
     "checkEmailHint": "Якщо листа немає за кілька хвилин — перевірте спам.",
     "emailAlreadyRegistered": "Цей email уже зареєстрований. Спробуйте Вхід.",

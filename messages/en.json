@@ -41,6 +41,8 @@
     "loginLink": "Log in",
     "errorGeneric": "Something went wrong. Please try again.",
     "errorNetwork": "Cannot reach Supabase. Check .env.local URL and anon key, then restart npm run dev.",
+    "errorEmailRateLimitSignup": "Registration failed. Too many confirmation emails were sent — please try again in about 60 minutes.",
+    "errorEmailRateLimit": "Too many email requests — please try again in about 60 minutes.",
     "checkEmail": "Check your email to confirm your account.",
     "checkEmailHint": "Check your spam folder if you don't see the email within a few minutes.",
     "emailAlreadyRegistered": "This email is already registered. Please log in instead.",

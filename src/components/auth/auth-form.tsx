@@ -19,6 +19,27 @@ function isAlreadyRegistered(error: AuthError) {
   );
 }
 
+function isEmailRateLimit(error: AuthError) {
+  const msg = error.message.toLowerCase();
+  return (
+    error.status === 429 ||
+    msg.includes("rate limit") ||
+    msg.includes("too many requests")
+  );
+}
+
+function authErrorMessage(
+  error: AuthError,
+  t: ReturnType<typeof useTranslations<"auth">>,
+  mode: "login" | "signup",
+) {
+  if (isAlreadyRegistered(error)) return t("emailAlreadyRegistered");
+  if (isEmailRateLimit(error)) {
+    return mode === "signup" ? t("errorEmailRateLimitSignup") : t("errorEmailRateLimit");
+  }
+  return error.message;
+}
+
 function isExistingSignupUser(data: {
   user: { identities?: unknown[] } | null;
   session: unknown;
@@ -56,7 +77,7 @@ export function AuthForm({ locale, mode }: { locale: string; mode: "login" | "si
 
       if (mode === "login") {
         const { error: authError } = await supabase.auth.signInWithPassword({ email, password });
-        if (authError) setError(authError.message);
+        if (authError) setError(authErrorMessage(authError, t, mode));
         else window.location.href = `/${locale}/dashboard`;
       } else {
         const { data, error: authError } = await supabase.auth.signUp({
@@ -67,8 +88,7 @@ export function AuthForm({ locale, mode }: { locale: string; mode: "login" | "si
           },
         });
         if (authError) {
-          if (isAlreadyRegistered(authError)) setError(t("emailAlreadyRegistered"));
-          else setError(authError.message);
+          setError(authErrorMessage(authError, t, mode));
         } else if (isExistingSignupUser(data)) {
           setError(t("emailAlreadyRegistered"));
         } else if (data.session) {
@@ -101,6 +121,8 @@ export function AuthForm({ locale, mode }: { locale: string; mode: "login" | "si
       if (error) {
         if (error.message.toLowerCase().includes("not enabled")) {
           setError(t("googleNotEnabled"));
+        } else if (isEmailRateLimit(error)) {
+          setError(mode === "signup" ? t("errorEmailRateLimitSignup") : t("errorEmailRateLimit"));
         } else {
           setError(error.message);
         }
