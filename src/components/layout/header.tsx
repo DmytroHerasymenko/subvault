@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { LanguageSwitcher } from "./language-switcher";
 import { Button } from "@/components/ui/button";
+import { APP_NAME } from "@/lib/constants";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 
@@ -28,7 +29,7 @@ export function Header({
     <header className="border-b border-border bg-card/80 backdrop-blur">
       <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-3">
         <Link href={`/${locale}`} className="text-lg font-bold text-primary">
-          SubVault
+          {APP_NAME}
         </Link>
         <div className="flex items-center gap-3">
           <LanguageSwitcher />

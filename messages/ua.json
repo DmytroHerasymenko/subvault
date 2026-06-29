@@ -1,6 +1,6 @@
 {
   "meta": {
-    "title": "SubVault — всі підписки в одному місці",
+    "title": "Renulo — всі підписки в одному місці",
     "description": "Відстежуйте місячні та річні підписки. Загальні витрати та розбивка по категоріях."
   },
   "nav": {
@@ -16,7 +16,7 @@
     "subtitle": "Netflix, YouTube, Gemini, інтернет та інше — відстежуйте витрати, фільтруйте по категоріях і бачте суму на місяць.",
     "ctaPrimary": "Почати безкоштовно",
     "ctaSecondary": "Вхід",
-    "featuresTitle": "Чому SubVault?",
+    "featuresTitle": "Чому Renulo?",
     "feature1Title": "Один дашборд",
     "feature1Desc": "Всі підписки з сумою, валютою та датою наступного списання.",
     "feature2Title": "Аналітика витрат",
@@ -43,7 +43,8 @@
     "errorNetwork": "Немає з’єднання з Supabase. Перевірте URL і anon key у .env.local, перезапустіть npm run dev.",
     "checkEmail": "Перевірте email для підтвердження акаунта.",
     "checkEmailHint": "Якщо листа немає за кілька хвилин — перевірте спам.",
-    "emailAlreadyRegistered": "Цей email уже зареєстрований. Спробуйте Вхід."
+    "emailAlreadyRegistered": "Цей email уже зареєстрований. Спробуйте Вхід.",
+    "googleNotEnabled": "Вхід через Google не налаштований. Ввімкніть Google в Supabase → Authentication → Providers."
   },
   "dashboard": {
     "title": "Мої підписки",

@@ -1,5 +1,12 @@
 import type { Category, Currency } from "./types";
 
+export const APP_NAME = "Renulo";
+
+/** Canonical site URL — from env at build time; fallback is free Vercel subdomain. */
+export const APP_URL =
+  process.env.NEXT_PUBLIC_SITE_URL?.trim().replace(/\/$/, "") ||
+  "https://renulo.vercel.app";
+
 export const CURRENCIES: Currency[] = ["UAH", "USD", "EUR"];
 
 export const CATEGORIES: Category[] = [

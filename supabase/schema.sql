@@ -1,4 +1,4 @@
--- SubVault database schema for Supabase
+-- Renulo database schema for Supabase
 -- Run in Supabase SQL Editor
 
 -- Profiles (extends auth.users)

@@ -1,6 +1,8 @@
-# SubVault
+# Renulo
 
 Track all your subscriptions in one place — Netflix, YouTube, Gemini, internet, and more.
+
+**Live (free):** [https://renulo.vercel.app](https://renulo.vercel.app) · **Later:** `renulo.app`
 
 **Free stack:** Next.js · Supabase (auth + DB) · Vercel hosting
 
@@ -21,9 +23,7 @@ Track all your subscriptions in one place — Netflix, YouTube, Gemini, internet
 1. Create a project at [supabase.com](https://supabase.com)
 2. SQL Editor → run `supabase/schema.sql`
 3. Authentication → Providers → enable **Email** and **Google**
-4. Authentication → URL Configuration:
-   - Site URL: `http://localhost:3000` (later your Vercel URL)
-   - Redirect URLs: `http://localhost:3000/auth/callback`, `https://your-app.vercel.app/auth/callback`
+4. Authentication → URL Configuration — see **§5** below (use `renulo.vercel.app` first).
 5. Settings → API → copy **Project URL** and **anon public** key
 
 ### 2. Local env
@@ -49,40 +49,57 @@ npm run dev
 
 Open [http://localhost:3000/ua](http://localhost:3000/ua)
 
-### 4. Deploy on Vercel (free)
+### 4. Deploy on Vercel (free hosting)
 
-1. Push this repo to GitHub (see below)
-2. Go to [vercel.com/new](https://vercel.com/new) → Import Git Repository
-3. Select the repo → Framework: **Next.js** (auto-detected)
-4. **Environment Variables** (add all three):
+See **Phase 1** below for `renulo.vercel.app` (free). **Phase 2** is when you buy `renulo.app`.
+
+#### Phase 1 — start on `renulo.vercel.app` (no domain purchase)
+
+1. Push this repo to GitHub (commit all Renulo changes).
+2. [vercel.com/new](https://vercel.com/new) → Import repo (or use existing project).
+3. **Settings → General → Project Name** → set to `renulo` (production URL becomes `https://renulo.vercel.app`). If the name is taken, use e.g. `renulo-app` → `https://renulo-app.vercel.app` and use that URL everywhere below instead of `renulo.vercel.app`.
+4. **Settings → Environment Variables** (Production + Preview + Development):
 
 | Name | Value |
 |------|--------|
-| `NEXT_PUBLIC_SUPABASE_URL` | `https://bjpudauocwqlavwdinnt.supabase.co` |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | your anon key from Supabase |
-| `NEXT_PUBLIC_SITE_URL` | `https://YOUR-APP.vercel.app` (set after first deploy, then redeploy) |
+| `NEXT_PUBLIC_SUPABASE_URL` | your Supabase project URL |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | anon key |
+| `NEXT_PUBLIC_SITE_URL` | `https://renulo.vercel.app` |
 
-5. Click **Deploy**
-6. After deploy, copy your Vercel URL (e.g. `https://subvault-xxx.vercel.app`)
-7. Update **NEXT_PUBLIC_SITE_URL** in Vercel → Settings → Environment Variables → **Redeploy**
-8. Update **Supabase** → Authentication → URL Configuration:
-   - Site URL: `https://YOUR-APP.vercel.app`
-   - Redirect URLs: `https://YOUR-APP.vercel.app/auth/callback`
-9. **Google OAuth** (if used): add the same Supabase callback URL in Google Cloud Console
+5. **Deployments** → Redeploy latest (or push to `main` to trigger deploy).
+6. Configure Supabase and Google (sections 5–6 below).
+7. Open `https://renulo.vercel.app/ua` and test signup / Google login.
 
-**Push to GitHub (one time):**
+#### Phase 2 — switch to `renulo.app` (after buying the domain)
 
-```bash
-cd C:\Users\mcdim\Projects\subvault
-gh repo create subvault --public --source=. --remote=origin --push
-```
+1. Register `renulo.app` (Namecheap, Cloudflare, or Vercel Domains).
+2. Vercel → **Settings → Domains** → Add `renulo.app` and `www.renulo.app` → set DNS as Vercel shows.
+3. Change `NEXT_PUBLIC_SITE_URL` to `https://renulo.app` → **Redeploy**.
+4. Supabase → update Site URL and add `https://renulo.app/auth/callback` (keep old Vercel URL in redirect list until you drop it).
+5. Google OAuth → add `https://renulo.app` to authorized origins.
 
-Or create an empty repo on GitHub and:
+### 5. Supabase URL configuration
 
-```bash
-git remote add origin https://github.com/DmytroHerasymenko/subvault.git
-git push -u origin master
-```
+**Authentication → URL Configuration**
+
+**Phase 1 (now):**
+
+- Site URL: `https://renulo.vercel.app`
+- Redirect URLs (add each line):
+  - `http://localhost:3000/auth/callback`
+  - `https://renulo.vercel.app/auth/callback`
+  - `https://*.vercel.app/auth/callback` (preview deploys)
+
+**Phase 2 (after domain):** Site URL → `https://renulo.app`; add `https://renulo.app/auth/callback` and `https://www.renulo.app/auth/callback`.
+
+### 6. Google OAuth (if enabled in Supabase)
+
+In [Google Cloud Console](https://console.cloud.google.com/) → your OAuth client:
+
+- **Authorized JavaScript origins:** `https://renulo.vercel.app` (later also `https://renulo.app`)
+- **Authorized redirect URIs:** leave as Supabase callback only, e.g. `https://YOUR_PROJECT_REF.supabase.co/auth/v1/callback` (not your app URL)
+
+Supabase handles the redirect to `/auth/callback` on your site.
 
 ## Monetization (planned)
 
@@ -104,4 +121,4 @@ supabase/schema.sql # Database + RLS
 
 ## Exchange rates
 
-Totals in your preferred currency use [Frankfurter](https://www.frankfurter.app/) (free, no API key). Rates are approximate.
+Totals in your preferred currency use [Frankfurter](https://www.frankfurter.app/) and [open.er-api.com](https://open.er-api.com/) (free). Rates are approximate.

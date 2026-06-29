@@ -1,6 +1,6 @@
 {
   "meta": {
-    "title": "SubVault — all your subscriptions in one place",
+    "title": "Renulo — all your subscriptions in one place",
     "description": "Track monthly and yearly subscriptions. See total spend and breakdown by category."
   },
   "nav": {
@@ -16,7 +16,7 @@
     "subtitle": "Netflix, YouTube, Gemini, internet and more — track spending, filter by category, and see your monthly total.",
     "ctaPrimary": "Get started free",
     "ctaSecondary": "Log in",
-    "featuresTitle": "Why SubVault?",
+    "featuresTitle": "Why Renulo?",
     "feature1Title": "One dashboard",
     "feature1Desc": "All subscriptions with amount, currency, and renewal date.",
     "feature2Title": "Spending analytics",
@@ -43,7 +43,8 @@
     "errorNetwork": "Cannot reach Supabase. Check .env.local URL and anon key, then restart npm run dev.",
     "checkEmail": "Check your email to confirm your account.",
     "checkEmailHint": "Check your spam folder if you don't see the email within a few minutes.",
-    "emailAlreadyRegistered": "This email is already registered. Please log in instead."
+    "emailAlreadyRegistered": "This email is already registered. Please log in instead.",
+    "googleNotEnabled": "Google sign-in is not enabled. Enable Google in Supabase → Authentication → Providers."
   },
   "dashboard": {
     "title": "My subscriptions",

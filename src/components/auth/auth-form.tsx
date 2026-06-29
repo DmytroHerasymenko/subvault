@@ -77,6 +77,8 @@ export function AuthForm({ locale, mode }: { locale: string; mode: "login" | "si
   }
 
   async function handleGoogle() {
+    setError(null);
+    setLoading(true);
     try {
       const supabase = createClient();
       const { error } = await supabase.auth.signInWithOAuth({
@@ -85,10 +87,17 @@ export function AuthForm({ locale, mode }: { locale: string; mode: "login" | "si
           redirectTo: `${siteUrl()}/auth/callback`,
         },
       });
-      if (error) setError(error.message);
+      if (error) {
+        if (error.message.toLowerCase().includes("not enabled")) {
+          setError(t("googleNotEnabled"));
+        } else {
+          setError(error.message);
+        }
+      }
     } catch {
       setError(t("errorNetwork"));
     }
+    setLoading(false);
   }
 
   return (
@@ -97,7 +106,7 @@ export function AuthForm({ locale, mode }: { locale: string; mode: "login" | "si
         {mode === "login" ? t("loginTitle") : t("signupTitle")}
       </h1>
 
-      <Button type="button" variant="outline" className="w-full" onClick={handleGoogle}>
+      <Button type="button" variant="outline" className="w-full" onClick={handleGoogle} disabled={loading}>
         {t("googleButton")}
       </Button>
 
