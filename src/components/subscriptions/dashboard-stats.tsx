@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 import { Card, CardTitle, CardValue } from "@/components/ui/card";
 import { formatMoney } from "@/lib/utils";
+import { toIntlLocale } from "@/lib/intl-locale";
 import type { Category, Currency } from "@/lib/types";
 import { CATEGORIES } from "@/lib/constants";
 
@@ -23,7 +24,7 @@ export function DashboardStats({
 }) {
   const t = useTranslations("dashboard");
   const tc = useTranslations("categories");
-  const intlLocale = locale === "ua" ? "uk-UA" : "en-US";
+  const intlLocale = toIntlLocale(locale);
 
   const maxCategory = Math.max(...Object.values(byCategory), 1);
 

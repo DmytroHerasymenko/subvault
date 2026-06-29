@@ -14,7 +14,7 @@ Track all your subscriptions in one place — Netflix, YouTube, Gemini, internet
 - Monthly & yearly totals in UAH, USD, or EUR
 - Category breakdown (streaming, internet, AI, software, games, other)
 - Filters and sorting
-- Ukrainian and English UI
+- Ukrainian, English, and Polish UI
 
 ## Setup
 
@@ -160,11 +160,11 @@ node scripts/configure-supabase-smtp.mjs
 
 ```
 src/
-  app/[locale]/     # Pages (ua, en)
+  app/[locale]/     # Pages (ua, en, pl)
   components/       # UI, dashboard, auth
   lib/              # Supabase, types, exchange rates
   i18n/             # next-intl config
-messages/           # ua.json, en.json
+messages/           # ua.json, en.json, pl.json
 supabase/schema.sql # Database + RLS
 ```
 

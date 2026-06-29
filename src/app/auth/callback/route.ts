@@ -1,10 +1,11 @@
 import { NextResponse } from "next/server";
+import { defaultLocale } from "@/i18n/config";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url);
   const code = searchParams.get("code");
-  const next = searchParams.get("next") ?? "/ua/dashboard";
+  const next = searchParams.get("next") ?? `/${defaultLocale}/dashboard`;
 
   if (code) {
     const supabase = await createClient();
@@ -14,5 +15,5 @@ export async function GET(request: Request) {
     }
   }
 
-  return NextResponse.redirect(`${origin}/ua/login`);
+  return NextResponse.redirect(`${origin}/${defaultLocale}/login`);
 }

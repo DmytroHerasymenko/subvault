@@ -9,6 +9,7 @@ import { DashboardStats } from "./dashboard-stats";
 import { FREE_TIER_LIMIT } from "@/lib/constants";
 import { convertAmount } from "@/lib/exchange";
 import { formatMoney, monthlyAmount } from "@/lib/utils";
+import { toIntlLocale } from "@/lib/intl-locale";
 import type { Category, Currency, Subscription, SubscriptionFilters } from "@/lib/types";
 import { CATEGORIES } from "@/lib/constants";
 
@@ -45,7 +46,7 @@ export function DashboardClient({
     convertedById: Record<string, number>;
   } | null>(null);
 
-  const intlLocale = locale === "ua" ? "uk-UA" : "en-US";
+  const intlLocale = toIntlLocale(locale);
 
   const filtered = useMemo(() => {
     let list = [...subscriptions];

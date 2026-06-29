@@ -6,6 +6,7 @@ const FALLBACK: Record<Currency, number> = {
   USD: 1,
   EUR: 0.92,
   UAH: 41,
+  PLN: 4.0,
 };
 
 export async function GET() {
@@ -22,6 +23,7 @@ export async function GET() {
       USD: 1,
       EUR: rates.EUR ?? FALLBACK.EUR,
       UAH: rates.UAH ?? FALLBACK.UAH,
+      PLN: rates.PLN ?? FALLBACK.PLN,
     });
   } catch {
     return NextResponse.json(FALLBACK);

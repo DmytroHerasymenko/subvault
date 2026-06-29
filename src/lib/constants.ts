@@ -10,7 +10,7 @@ export const APP_URL =
   process.env.NEXT_PUBLIC_SITE_URL?.trim().replace(/\/$/, "") ||
   "https://renulo.vercel.app";
 
-export const CURRENCIES: Currency[] = ["UAH", "USD", "EUR"];
+export const CURRENCIES: Currency[] = ["UAH", "USD", "EUR", "PLN"];
 
 export const CATEGORIES: Category[] = [
   "streaming",
@@ -42,6 +42,8 @@ export const SERVICE_TEMPLATES: Array<{
   { name: "Xbox Game Pass", category: "games", amount: 15, currency: "USD", billing_period: "monthly" },
   { name: "Internet", category: "internet", amount: 300, currency: "UAH", billing_period: "monthly" },
   { name: "Mobile plan", category: "internet", amount: 200, currency: "UAH", billing_period: "monthly" },
+  { name: "Internet", category: "internet", amount: 60, currency: "PLN", billing_period: "monthly" },
+  { name: "Mobile plan", category: "internet", amount: 45, currency: "PLN", billing_period: "monthly" },
 ];
 
 export const FREE_TIER_LIMIT = 15;

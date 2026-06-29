@@ -1,5 +1,5 @@
-export type Currency = "UAH" | "USD" | "EUR";
-export type Locale = "ua" | "en";
+export type Currency = "UAH" | "USD" | "EUR" | "PLN";
+export type Locale = "ua" | "en" | "pl";
 export type Category =
   | "streaming"
   | "internet"

@@ -2,7 +2,7 @@
 
 import { useLocale } from "next-intl";
 import { usePathname, useRouter } from "next/navigation";
-import { locales } from "@/i18n/config";
+import { locales, type AppLocale } from "@/i18n/config";
 
 export function LanguageSwitcher() {
   const locale = useLocale();
@@ -11,7 +11,7 @@ export function LanguageSwitcher() {
 
   function switchLocale(next: string) {
     const segments = pathname.split("/");
-    if (locales.includes(segments[1] as "ua" | "en")) {
+    if (locales.includes(segments[1] as AppLocale)) {
       segments[1] = next;
     } else {
       segments.splice(1, 0, next);
