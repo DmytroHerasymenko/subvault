@@ -9,18 +9,21 @@ export function CurrencySelect({
   onChange,
   id,
   className,
+  "aria-label": ariaLabel,
 }: {
   value: Currency;
-  onChange: (currency: Currency) => void;
+  onChange: (currency: Currency) => void | Promise<void>;
   id?: string;
   className?: string;
+  "aria-label"?: string;
 }) {
   return (
     <Select
       id={id}
       value={value}
-      onChange={(e) => onChange(e.target.value as Currency)}
+      onChange={(e) => void onChange(e.target.value as Currency)}
       className={className}
+      aria-label={ariaLabel}
     >
       {CURRENCIES.map((c) => (
         <option key={c} value={c}>

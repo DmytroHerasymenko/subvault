@@ -3,9 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
-import { CurrencySelect } from "@/components/settings/currency-select";
-import { createClient } from "@/lib/supabase/client";
+import { useDisplayCurrency } from "@/components/layout/display-currency-context";
 import { SubscriptionForm } from "./subscription-form";
 import { SubscriptionFiltersBar } from "./filters";
 import { DashboardStats } from "./dashboard-stats";
@@ -28,19 +26,16 @@ export function DashboardClient({
   locale,
   userId,
   subscriptions: initialSubs,
-  preferredCurrency,
 }: {
   locale: string;
   userId: string;
   subscriptions: Subscription[];
-  preferredCurrency: Currency;
 }) {
   const t = useTranslations("dashboard");
   const ts = useTranslations("subscription");
   const tc = useTranslations("categories");
-  const tSettings = useTranslations("settings");
+  const { currency: displayCurrency } = useDisplayCurrency();
   const [subscriptions, setSubscriptions] = useState(initialSubs);
-  const [displayCurrency, setDisplayCurrency] = useState(preferredCurrency);
   const [filters, setFilters] = useState(defaultFilters);
   const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState<Subscription | null>(null);
@@ -56,16 +51,6 @@ export function DashboardClient({
   useEffect(() => {
     setSubscriptions(initialSubs);
   }, [initialSubs]);
-
-  useEffect(() => {
-    setDisplayCurrency(preferredCurrency);
-  }, [preferredCurrency]);
-
-  async function handleCurrencyChange(currency: Currency) {
-    setDisplayCurrency(currency);
-    const supabase = createClient();
-    await supabase.from("profiles").update({ preferred_currency: currency }).eq("id", userId);
-  }
 
   const filtered = useMemo(() => {
     let list = [...subscriptions];
@@ -146,13 +131,6 @@ export function DashboardClient({
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-wrap items-end justify-between gap-4">
-        <div className="w-full max-w-[10rem]">
-          <Label className="mb-1 block text-sm">{tSettings("displayCurrency")}</Label>
-          <CurrencySelect value={displayCurrency} onChange={handleCurrencyChange} />
-        </div>
-      </div>
-
       {rates && (
         <DashboardStats
           totalMonthly={rates.monthly}

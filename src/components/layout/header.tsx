@@ -3,20 +3,28 @@
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { LanguageSwitcher } from "./language-switcher";
+import { CurrencySelect } from "@/components/settings/currency-select";
+import { useDisplayCurrency } from "./display-currency-context";
 import { Button } from "@/components/ui/button";
 import { APP_NAME } from "@/lib/constants";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 
+const compactSelectClass = "h-8 w-auto min-w-[4.75rem] py-1 pl-2 pr-6 text-xs font-medium";
+
 export function Header({
   locale,
   userEmail,
+  userId,
 }: {
   locale: string;
   userEmail?: string | null;
+  userId?: string | null;
 }) {
   const t = useTranslations("nav");
+  const tSettings = useTranslations("settings");
   const router = useRouter();
+  const { currency, setCurrency } = useDisplayCurrency();
 
   async function logout() {
     const supabase = createClient();
@@ -34,8 +42,16 @@ export function Header({
         >
           {APP_NAME}
         </Link>
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center justify-end gap-2 sm:gap-3">
           <LanguageSwitcher />
+          {userId && (
+            <CurrencySelect
+              value={currency}
+              onChange={setCurrency}
+              className={compactSelectClass}
+              aria-label={tSettings("displayCurrency")}
+            />
+          )}
           {userEmail ? (
             <>
               <Link
@@ -50,7 +66,7 @@ export function Header({
               >
                 {t("settings")}
               </Link>
-              <span className="hidden text-sm text-muted-foreground sm:inline">{userEmail}</span>
+              <span className="hidden text-sm text-muted-foreground lg:inline">{userEmail}</span>
               <Button variant="outline" size="sm" onClick={logout}>
                 {t("logout")}
               </Button>

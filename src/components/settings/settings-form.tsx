@@ -3,28 +3,22 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { CurrencySelect } from "@/components/settings/currency-select";
-import { CURRENCIES } from "@/lib/constants";
-import type { Currency } from "@/lib/types";
+import { useDisplayCurrency } from "@/components/layout/display-currency-context";
 
 export function SettingsForm({
   locale,
-  userId,
   userEmail,
-  preferredCurrency,
 }: {
   locale: string;
-  userId: string;
   userEmail: string;
-  preferredCurrency: Currency;
 }) {
   const t = useTranslations("settings");
   const router = useRouter();
-  const [currency, setCurrency] = useState(preferredCurrency);
+  const { currency, setCurrency } = useDisplayCurrency();
   const [saved, setSaved] = useState(false);
   const [loading, setLoading] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
@@ -35,11 +29,7 @@ export function SettingsForm({
   async function handleSave(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
-    const supabase = createClient();
-    await supabase
-      .from("profiles")
-      .update({ preferred_currency: currency })
-      .eq("id", userId);
+    await setCurrency(currency);
     setLoading(false);
     setSaved(true);
     setTimeout(() => setSaved(false), 2000);
@@ -72,7 +62,7 @@ export function SettingsForm({
         <h1 className="text-xl font-bold">{t("title")}</h1>
         <div>
           <Label className="mb-1 block">{t("displayCurrency")}</Label>
-          <CurrencySelect value={currency} onChange={setCurrency} />
+          <CurrencySelect value={currency} onChange={(c) => void setCurrency(c)} />
         </div>
         <Button type="submit" disabled={loading}>{t("save")}</Button>
         {saved && <p className="text-sm text-success">{t("saved")}</p>}
