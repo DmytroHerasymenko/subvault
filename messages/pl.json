@@ -64,7 +64,8 @@
     "emptyTitle": "Brak subskrypcji",
     "emptyDesc": "Dodaj pierwszą subskrypcję lub wybierz szablon poniżej.",
     "limitWarning": "Plan darmowy: do {limit} subskrypcji. Premium wkrótce.",
-    "conversionNote": "Przeliczone na {currency} według przybliżonych kursów."
+    "conversionNote": "Przeliczone na {currency} według przybliżonych kursów.",
+    "clearFilters": "Wyczyść filtry"
   },
   "subscription": {
     "name": "Nazwa",

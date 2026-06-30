@@ -64,7 +64,8 @@
     "emptyTitle": "No subscriptions yet",
     "emptyDesc": "Add your first subscription or pick a template below.",
     "limitWarning": "Free plan: up to {limit} subscriptions. Upgrade coming soon.",
-    "conversionNote": "Converted to {currency} at approximate rates."
+    "conversionNote": "Converted to {currency} at approximate rates.",
+    "clearFilters": "Clear filters"
   },
   "subscription": {
     "name": "Name",

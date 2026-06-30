@@ -3,6 +3,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { CurrencySelect } from "@/components/settings/currency-select";
+import { createClient } from "@/lib/supabase/client";
 import { SubscriptionForm } from "./subscription-form";
 import { SubscriptionFiltersBar } from "./filters";
 import { DashboardStats } from "./dashboard-stats";
@@ -35,7 +38,9 @@ export function DashboardClient({
   const t = useTranslations("dashboard");
   const ts = useTranslations("subscription");
   const tc = useTranslations("categories");
+  const tSettings = useTranslations("settings");
   const [subscriptions, setSubscriptions] = useState(initialSubs);
+  const [displayCurrency, setDisplayCurrency] = useState(preferredCurrency);
   const [filters, setFilters] = useState(defaultFilters);
   const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState<Subscription | null>(null);
@@ -47,6 +52,20 @@ export function DashboardClient({
   } | null>(null);
 
   const intlLocale = toIntlLocale(locale);
+
+  useEffect(() => {
+    setSubscriptions(initialSubs);
+  }, [initialSubs]);
+
+  useEffect(() => {
+    setDisplayCurrency(preferredCurrency);
+  }, [preferredCurrency]);
+
+  async function handleCurrencyChange(currency: Currency) {
+    setDisplayCurrency(currency);
+    const supabase = createClient();
+    await supabase.from("profiles").update({ preferred_currency: currency }).eq("id", userId);
+  }
 
   const filtered = useMemo(() => {
     let list = [...subscriptions];
@@ -88,12 +107,12 @@ export function DashboardClient({
       for (const sub of active) {
         const m = monthlyAmount(Number(sub.amount), sub.billing_period);
         try {
-          const converted = await convertAmount(m, sub.currency, preferredCurrency);
+          const converted = await convertAmount(m, sub.currency, displayCurrency);
           monthly += converted;
           byCat[sub.category] += converted;
           convertedById[sub.id] = converted;
         } catch {
-          if (sub.currency === preferredCurrency) {
+          if (sub.currency === displayCurrency) {
             monthly += m;
             byCat[sub.category] += m;
             convertedById[sub.id] = m;
@@ -104,7 +123,7 @@ export function DashboardClient({
       setRates({ monthly, yearly: monthly * 12, byCategory: byCat, convertedById });
     }
     calc();
-  }, [subscriptions, preferredCurrency]);
+  }, [subscriptions, displayCurrency]);
 
   async function refresh() {
     const { createClient } = await import("@/lib/supabase/client");
@@ -119,15 +138,27 @@ export function DashboardClient({
   }
 
   const atLimit = subscriptions.length >= FREE_TIER_LIMIT;
+  const hasFilters =
+    filters.search !== "" ||
+    filters.category !== "all" ||
+    filters.status !== "all" ||
+    filters.billing_period !== "all";
 
   return (
     <div className="space-y-6">
+      <div className="flex flex-wrap items-end justify-between gap-4">
+        <div className="w-full max-w-[10rem]">
+          <Label className="mb-1 block text-sm">{tSettings("displayCurrency")}</Label>
+          <CurrencySelect value={displayCurrency} onChange={handleCurrencyChange} />
+        </div>
+      </div>
+
       {rates && (
         <DashboardStats
           totalMonthly={rates.monthly}
           totalYearly={rates.yearly}
           byCategory={rates.byCategory}
-          currency={preferredCurrency}
+          currency={displayCurrency}
           locale={locale}
           activeCount={activeCount}
         />
@@ -140,7 +171,7 @@ export function DashboardClient({
       )}
 
       <p className="text-xs text-muted-foreground">
-        {t("conversionNote", { currency: preferredCurrency })}
+        {t("conversionNote", { currency: displayCurrency })}
       </p>
 
       <SubscriptionFiltersBar filters={filters} onChange={setFilters} />
@@ -172,8 +203,26 @@ export function DashboardClient({
 
       {filtered.length === 0 ? (
         <div className="rounded-xl border border-dashed border-border p-8 text-center">
-          <p className="font-medium">{t("emptyTitle")}</p>
-          <p className="mt-1 text-sm text-muted-foreground">{t("emptyDesc")}</p>
+          {subscriptions.length === 0 ? (
+            <>
+              <p className="font-medium">{t("emptyTitle")}</p>
+              <p className="mt-1 text-sm text-muted-foreground">{t("emptyDesc")}</p>
+            </>
+          ) : (
+            <>
+              <p className="font-medium">{ts("noResults")}</p>
+              {hasFilters && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="mt-3"
+                  onClick={() => setFilters(defaultFilters)}
+                >
+                  {t("clearFilters")}
+                </Button>
+              )}
+            </>
+          )}
         </div>
       ) : (
         <ul className="divide-y divide-border rounded-xl border border-border bg-card">
@@ -197,9 +246,9 @@ export function DashboardClient({
                     </span>
                   </span>
                   {rates?.convertedById[sub.id] != null &&
-                    sub.currency !== preferredCurrency && (
+                    sub.currency !== displayCurrency && (
                     <span className="text-sm text-muted-foreground">
-                      ≈ {formatMoney(rates.convertedById[sub.id], preferredCurrency, intlLocale)}
+                      ≈ {formatMoney(rates.convertedById[sub.id], displayCurrency, intlLocale)}
                       {ts("perMonth")}
                     </span>
                   )}
@@ -212,9 +261,6 @@ export function DashboardClient({
         </ul>
       )}
 
-      {filtered.length === 0 && subscriptions.length > 0 && (
-        <p className="text-center text-sm text-muted-foreground">{ts("noResults")}</p>
-      )}
     </div>
   );
 }

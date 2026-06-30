@@ -5,9 +5,9 @@ import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
-import { Select } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { CurrencySelect } from "@/components/settings/currency-select";
 import { CURRENCIES } from "@/lib/constants";
 import type { Currency } from "@/lib/types";
 
@@ -72,14 +72,7 @@ export function SettingsForm({
         <h1 className="text-xl font-bold">{t("title")}</h1>
         <div>
           <Label className="mb-1 block">{t("displayCurrency")}</Label>
-          <Select
-            value={currency}
-            onChange={(e) => setCurrency(e.target.value as Currency)}
-          >
-            {CURRENCIES.map((c) => (
-              <option key={c} value={c}>{c}</option>
-            ))}
-          </Select>
+          <CurrencySelect value={currency} onChange={setCurrency} />
         </div>
         <Button type="submit" disabled={loading}>{t("save")}</Button>
         {saved && <p className="text-sm text-success">{t("saved")}</p>}

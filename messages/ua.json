@@ -64,7 +64,8 @@
     "emptyTitle": "Ще немає підписок",
     "emptyDesc": "Додайте першу підписку або оберіть шаблон нижче.",
     "limitWarning": "Безкоштовний план: до {limit} підписок. Преміум скоро.",
-    "conversionNote": "Конвертовано в {currency} по наближеним курсам."
+    "conversionNote": "Конвертовано в {currency} по наближеним курсам.",
+    "clearFilters": "Скинути фільтри"
   },
   "subscription": {
     "name": "Назва",
