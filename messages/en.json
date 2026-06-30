@@ -4,7 +4,7 @@
     "description": "Track monthly and yearly subscriptions. See total spend and breakdown by category."
   },
   "nav": {
-    "dashboard": "Dashboard",
+    "dashboard": "Home",
     "login": "Log in",
     "signup": "Sign up",
     "logout": "Log out",

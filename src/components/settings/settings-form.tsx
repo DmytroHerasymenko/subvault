@@ -4,10 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { CurrencySelect } from "@/components/settings/currency-select";
-import { useDisplayCurrency } from "@/components/layout/display-currency-context";
 
 export function SettingsForm({
   locale,
@@ -18,22 +15,10 @@ export function SettingsForm({
 }) {
   const t = useTranslations("settings");
   const router = useRouter();
-  const { currency, setCurrency } = useDisplayCurrency();
-  const [saved, setSaved] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [deleteConfirm, setDeleteConfirm] = useState("");
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [deleteError, setDeleteError] = useState<string | null>(null);
-
-  async function handleSave(e: React.FormEvent) {
-    e.preventDefault();
-    setLoading(true);
-    await setCurrency(currency);
-    setLoading(false);
-    setSaved(true);
-    setTimeout(() => setSaved(false), 2000);
-  }
 
   async function handleDeleteAccount() {
     setDeleteError(null);
@@ -58,15 +43,7 @@ export function SettingsForm({
 
   return (
     <div className="max-w-sm space-y-8">
-      <form onSubmit={handleSave} className="space-y-4 rounded-xl border border-border bg-card p-5">
-        <h1 className="text-xl font-bold">{t("title")}</h1>
-        <div>
-          <Label className="mb-1 block">{t("displayCurrency")}</Label>
-          <CurrencySelect value={currency} onChange={(c) => void setCurrency(c)} />
-        </div>
-        <Button type="submit" disabled={loading}>{t("save")}</Button>
-        {saved && <p className="text-sm text-success">{t("saved")}</p>}
-      </form>
+      <h1 className="text-xl font-bold">{t("title")}</h1>
 
       <section className="rounded-xl border border-destructive/30 bg-card p-5">
         <h2 className="text-lg font-semibold text-destructive">{t("deleteTitle")}</h2>

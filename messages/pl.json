@@ -4,7 +4,7 @@
     "description": "Śledź miesięczne i roczne subskrypcje. Suma wydatków i podział według kategorii."
   },
   "nav": {
-    "dashboard": "Panel",
+    "dashboard": "Główna",
     "login": "Zaloguj się",
     "signup": "Rejestracja",
     "logout": "Wyloguj",
