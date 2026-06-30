@@ -7,6 +7,11 @@ import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { isAppLocale } from "@/lib/locale-preferences";
+import {
+  fetchDetectedPreferences,
+  saveProfilePreferences,
+} from "@/lib/profile-preferences";
 import type { AuthError } from "@supabase/supabase-js";
 
 function isAlreadyRegistered(error: AuthError) {
@@ -60,6 +65,25 @@ export function AuthForm({ locale, mode }: { locale: string; mode: "login" | "si
     return process.env.NEXT_PUBLIC_SITE_URL || window.location.origin;
   }
 
+  async function redirectAfterAuth(supabase: ReturnType<typeof createClient>, pageLocale: string) {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    if (!user) {
+      window.location.href = `/${pageLocale}/dashboard`;
+      return;
+    }
+
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("locale")
+      .eq("id", user.id)
+      .single();
+
+    const targetLocale = isAppLocale(profile?.locale ?? "") ? profile!.locale : pageLocale;
+    window.location.href = `/${targetLocale}/dashboard`;
+  }
+
   async function handleEmailAuth(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
@@ -77,22 +101,31 @@ export function AuthForm({ locale, mode }: { locale: string; mode: "login" | "si
 
       if (mode === "login") {
         const { error: authError } = await supabase.auth.signInWithPassword({ email, password });
-        if (authError) setError(authErrorMessage(authError, t, mode));
-        else window.location.href = `/${locale}/dashboard`;
+        if (authError) {
+          setError(authErrorMessage(authError, t, mode));
+        } else {
+          await redirectAfterAuth(supabase, locale);
+        }
       } else {
+        const prefs = await fetchDetectedPreferences();
         const { data, error: authError } = await supabase.auth.signUp({
           email,
           password,
           options: {
-            emailRedirectTo: `${siteUrl()}/auth/callback`,
+            emailRedirectTo: `${siteUrl()}/auth/callback?locale=${locale}&setup=1`,
+            data: {
+              locale,
+              preferred_currency: prefs.currency,
+            },
           },
         });
         if (authError) {
           setError(authErrorMessage(authError, t, mode));
         } else if (isExistingSignupUser(data)) {
           setError(t("emailAlreadyRegistered"));
-        } else if (data.session) {
-          window.location.href = `/${locale}/dashboard`;
+        } else if (data.session && data.user) {
+          await saveProfilePreferences(supabase, data.user.id, locale, prefs.currency);
+          await redirectAfterAuth(supabase, locale);
         } else {
           setMessage(t("checkEmail"));
         }
@@ -112,10 +145,11 @@ export function AuthForm({ locale, mode }: { locale: string; mode: "login" | "si
     setLoading(true);
     try {
       const supabase = createClient();
+      const setupParam = mode === "signup" ? "&setup=1" : "";
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-          redirectTo: `${siteUrl()}/auth/callback`,
+          redirectTo: `${siteUrl()}/auth/callback?locale=${locale}${setupParam}`,
         },
       });
       if (error) {

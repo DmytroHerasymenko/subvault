@@ -4,7 +4,7 @@ import { locales, type AppLocale } from "./config";
 export default getRequestConfig(async ({ requestLocale }) => {
   let locale = await requestLocale;
   if (!locale || !locales.includes(locale as AppLocale)) {
-    locale = "ua";
+    locale = "en";
   }
   return {
     locale,

@@ -2,11 +2,13 @@ import { createServerClient, type CookieOptions } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 import createIntlMiddleware from "next-intl/middleware";
 import { defaultLocale, locales } from "./i18n/config";
+import { isAppLocale } from "./lib/locale-preferences";
 
 const intlMiddleware = createIntlMiddleware({
   locales,
   defaultLocale,
   localePrefix: "always",
+  localeDetection: true,
 });
 
 export async function middleware(request: NextRequest) {
@@ -16,7 +18,6 @@ export async function middleware(request: NextRequest) {
 
   const pathname = request.nextUrl.pathname;
 
-  // Legacy locale path: redirect /uk → /ua
   if (pathname === "/uk" || pathname.startsWith("/uk/")) {
     const url = request.nextUrl.clone();
     url.pathname = pathname.replace(/^\/uk/, "/ua");
@@ -39,7 +40,7 @@ export async function middleware(request: NextRequest) {
           });
         },
       },
-    }
+    },
   );
 
   const {
@@ -53,6 +54,21 @@ export async function middleware(request: NextRequest) {
     ? pathname.replace(`/${locale}`, "") || "/"
     : pathname;
 
+  if (user && localeMatch) {
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("locale")
+      .eq("id", user.id)
+      .single();
+
+    const profileLocale = profile?.locale;
+    if (isAppLocale(profileLocale) && profileLocale !== locale) {
+      const url = request.nextUrl.clone();
+      url.pathname = pathname.replace(`/${locale}`, `/${profileLocale}`);
+      return NextResponse.redirect(url);
+    }
+  }
+
   const protectedPaths = ["/dashboard", "/settings"];
   const authPaths = ["/login", "/signup"];
   const isProtected = protectedPaths.some((p) => pathWithoutLocale.startsWith(p));
@@ -65,8 +81,14 @@ export async function middleware(request: NextRequest) {
   }
 
   if (isAuthPage && user) {
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("locale")
+      .eq("id", user.id)
+      .single();
+    const targetLocale = isAppLocale(profile?.locale ?? "") ? profile!.locale : locale;
     const url = request.nextUrl.clone();
-    url.pathname = `/${locale}/dashboard`;
+    url.pathname = `/${targetLocale}/dashboard`;
     return NextResponse.redirect(url);
   }
 

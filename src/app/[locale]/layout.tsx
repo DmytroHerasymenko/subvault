@@ -36,14 +36,14 @@ export default async function LocaleLayout({
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
 
-  let preferredCurrency: Currency = "UAH";
+  let preferredCurrency: Currency = "EUR";
   if (user) {
     const { data: profile } = await supabase
       .from("profiles")
       .select("preferred_currency")
       .eq("id", user.id)
       .single();
-    preferredCurrency = (profile?.preferred_currency as Currency) ?? "UAH";
+    preferredCurrency = (profile?.preferred_currency as Currency) ?? "EUR";
   }
 
   return (

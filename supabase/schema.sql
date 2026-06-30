@@ -5,8 +5,8 @@
 create table if not exists public.profiles (
   id uuid references auth.users on delete cascade primary key,
   display_name text,
-  preferred_currency text not null default 'UAH' check (preferred_currency in ('UAH', 'USD', 'EUR', 'PLN')),
-  locale text not null default 'ua' check (locale in ('ua', 'en', 'pl')),
+  preferred_currency text not null default 'EUR' check (preferred_currency in ('UAH', 'USD', 'EUR', 'PLN')),
+  locale text not null default 'en' check (locale in ('ua', 'en', 'pl')),
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
@@ -37,8 +37,13 @@ language plpgsql
 security definer set search_path = public
 as $$
 begin
-  insert into public.profiles (id, display_name)
-  values (new.id, coalesce(new.raw_user_meta_data->>'full_name', new.email));
+  insert into public.profiles (id, display_name, locale, preferred_currency)
+  values (
+    new.id,
+    coalesce(new.raw_user_meta_data->>'full_name', new.email),
+    coalesce(nullif(new.raw_user_meta_data->>'locale', ''), 'en'),
+    coalesce(nullif(new.raw_user_meta_data->>'preferred_currency', ''), 'EUR')
+  );
   return new;
 end;
 $$;
