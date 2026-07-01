@@ -5,7 +5,10 @@ import { usePathname, useRouter } from "next/navigation";
 import { Select } from "@/components/ui/select";
 import { createClient } from "@/lib/supabase/client";
 import { locales, type AppLocale } from "@/i18n/config";
-import { formatLocaleOption, formatLocaleOptionShort } from "@/i18n/locale-meta";
+import {
+  formatLocaleFlagOnly,
+  formatLocaleOption,
+} from "@/i18n/locale-meta";
 import { cn } from "@/lib/utils";
 
 const defaultSelectClass =
@@ -43,19 +46,19 @@ export function LanguageSwitcher({ selectClassName }: { selectClassName?: string
       <Select
         value={locale}
         onChange={(e) => void switchLocale(e.target.value)}
-        className={cn(selectClass, "min-w-[5rem] max-w-[5.5rem] md:hidden")}
+        className={cn(selectClass, "md:hidden")}
         aria-label="Language"
       >
         {locales.map((l) => (
           <option key={l} value={l}>
-            {formatLocaleOptionShort(l)}
+            {formatLocaleFlagOnly(l)}
           </option>
         ))}
       </Select>
       <Select
         value={locale}
         onChange={(e) => void switchLocale(e.target.value)}
-        className={cn(selectClass, "hidden min-w-[10rem] md:block")}
+        className={cn(selectClass, "hidden min-w-[9.5rem] md:block")}
         aria-label="Language"
       >
         {locales.map((l) => (

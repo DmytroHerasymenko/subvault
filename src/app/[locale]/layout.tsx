@@ -7,7 +7,9 @@ import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { DisplayCurrencyProvider } from "@/components/layout/display-currency-context";
 import { createClient } from "@/lib/supabase/server";
+import { PAGE_CONTAINER } from "@/lib/layout";
 import type { Currency } from "@/lib/types";
+import { cn } from "@/lib/utils";
 
 export async function generateMetadata({
   params,
@@ -50,7 +52,7 @@ export default async function LocaleLayout({
     <NextIntlClientProvider messages={messages}>
       <DisplayCurrencyProvider userId={user?.id ?? null} initialCurrency={preferredCurrency}>
         <Header locale={locale} userEmail={user?.email} userId={user?.id} />
-        <main className="mx-auto max-w-5xl px-3 py-4 sm:px-4 sm:py-8">{children}</main>
+        <main className={cn(PAGE_CONTAINER, "py-4 sm:py-8")}>{children}</main>
         <Footer locale={locale} />
       </DisplayCurrencyProvider>
     </NextIntlClientProvider>

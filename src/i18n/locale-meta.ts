@@ -16,3 +16,7 @@ export function formatLocaleOptionShort(locale: AppLocale) {
   const { flag } = localeMeta[locale];
   return `${flag} ${locale.toUpperCase()}`;
 }
+
+export function formatLocaleFlagOnly(locale: AppLocale) {
+  return localeMeta[locale].flag;
+}
