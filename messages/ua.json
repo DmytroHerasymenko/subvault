@@ -144,13 +144,13 @@
     "deleteConfirmButton": "Видалити назавжди",
     "deleteCancel": "Скасувати",
     "deleteLoading": "Видалення…",
-    "deleteError": "Не вдалося видалити акаунт. Спробуйте ще раз або напишіть у підтримку.",
-    "supportTitle": "Підтримка",
-    "supportDesc": "З питань щодо Renulo пишіть на:"
+    "deleteError": "Не вдалося видалити акаунт. Спробуйте ще раз або напишіть нам.",
+    "supportTitle": "Допомога",
+    "supportDesc": "Маєте питання про Renulo? Напишіть на:"
   },
   "donations": {
-    "title": "Підтримати Renulo",
-    "intro": "Renulo безкоштовний і без лімітів. Якщо сервіс вам допомагає, можна підтримати розробку добровільним донатом.",
+    "title": "Донат на Renulo",
+    "intro": "Renulo безкоштовний і без лімітів. Якщо сервіс вам допомагає, можна залишити добровільний донат.",
     "note": "Донат не обов'язковий і не відкриває додаткових функцій. Оплата проходить на стороні Monobank або Revolut.",
     "monobankTitle": "Monobank",
     "monobankDesc": "Донат у гривнях через банку Monobank — відкриється в додатку або браузері.",
@@ -158,14 +158,14 @@
     "revolutTitle": "Revolut",
     "revolutDesc": "Донат у EUR, GBP, USD та інших валютах через Revolut.me.",
     "revolutButton": "Надіслати через Revolut",
-    "settingsTitle": "Підтримати розробку",
+    "settingsTitle": "Донат",
     "settingsDesc": "Renulo безкоштовний. Якщо він вам корисний — можна залишити добровільний донат.",
-    "settingsLink": "Способи донату"
+    "settingsLink": "Як задонатити"
   },
   "footer": {
     "privacy": "Політика конфіденційності",
     "terms": "Умови використання",
-    "donations": "Підтримати",
+    "donations": "Донат",
     "rights": "© {year} Renulo",
     "contact": "Питання?"
   },

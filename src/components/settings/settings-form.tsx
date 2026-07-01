@@ -49,17 +49,6 @@ export function SettingsForm({
       <h1 className="text-xl font-bold">{t("title")}</h1>
 
       <section className="rounded-xl border border-border bg-card p-5">
-        <h2 className="text-lg font-semibold">{tDonations("settingsTitle")}</h2>
-        <p className="mt-2 text-sm text-muted-foreground">{tDonations("settingsDesc")}</p>
-        <Link
-          href={`/${locale}/donations`}
-          className="mt-4 inline-flex h-10 items-center justify-center rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground hover:bg-indigo-600"
-        >
-          {tDonations("settingsLink")}
-        </Link>
-      </section>
-
-      <section className="rounded-xl border border-border bg-card p-5">
         <h2 className="text-lg font-semibold">{t("supportTitle")}</h2>
         <p className="mt-2 text-sm text-muted-foreground">{t("supportDesc")}</p>
         <a
@@ -68,6 +57,17 @@ export function SettingsForm({
         >
           {SUPPORT_EMAIL}
         </a>
+      </section>
+
+      <section className="rounded-xl border border-border bg-card p-5">
+        <h2 className="text-lg font-semibold">{tDonations("settingsTitle")}</h2>
+        <p className="mt-2 text-sm text-muted-foreground">{tDonations("settingsDesc")}</p>
+        <Link
+          href={`/${locale}/donations`}
+          className="mt-4 inline-flex h-10 items-center justify-center rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground hover:bg-indigo-600"
+        >
+          {tDonations("settingsLink")}
+        </Link>
       </section>
 
       <section className="rounded-xl border border-destructive/30 bg-card p-5">

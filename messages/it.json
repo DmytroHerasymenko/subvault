@@ -145,12 +145,12 @@
     "deleteCancel": "Annulla",
     "deleteLoading": "Eliminazione…",
     "deleteError": "Impossibile eliminare l'account. Riprova o contatta il supporto.",
-    "supportTitle": "Supporto",
+    "supportTitle": "Aiuto",
     "supportDesc": "Domande su Renulo? Scrivici a:"
   },
   "donations": {
-    "title": "Sostieni Renulo",
-    "intro": "Renulo è gratuito e illimitato. Se ti aiuta a tenere traccia degli abbonamenti, puoi sostenere lo sviluppo con una donazione volontaria.",
+    "title": "Dona a Renulo",
+    "intro": "Renulo è gratuito e illimitato. Se ti aiuta a tenere traccia degli abbonamenti, puoi lasciare una donazione volontaria.",
     "note": "La donazione è facoltativa e non sblocca funzioni extra. Il pagamento avviene su Monobank o Revolut.",
     "monobankTitle": "Monobank (Ucraina)",
     "monobankDesc": "Dona in UAH tramite Monobank jar — si apre nell'app o nel browser.",
@@ -158,14 +158,14 @@
     "revolutTitle": "Revolut",
     "revolutDesc": "Dona in EUR, GBP, USD e altre valute tramite Revolut.me.",
     "revolutButton": "Invia con Revolut",
-    "settingsTitle": "Sostieni lo sviluppo",
+    "settingsTitle": "Dona",
     "settingsDesc": "Renulo è gratuito. Se ti è utile, puoi lasciare una donazione volontaria.",
-    "settingsLink": "Modi per donare"
+    "settingsLink": "Come donare"
   },
   "footer": {
     "privacy": "Privacy",
     "terms": "Termini",
-    "donations": "Sostieni",
+    "donations": "Dona",
     "rights": "© {year} Renulo",
     "contact": "Domande?"
   },

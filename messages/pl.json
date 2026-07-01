@@ -145,12 +145,12 @@
     "deleteCancel": "Anuluj",
     "deleteLoading": "Usuwanie…",
     "deleteError": "Nie można usunąć konta. Spróbuj ponownie lub skontaktuj się z pomocą.",
-    "supportTitle": "Wsparcie",
-    "supportDesc": "W sprawach Renulo napisz na:"
+    "supportTitle": "Pomoc",
+    "supportDesc": "Pytania o Renulo? Napisz na:"
   },
   "donations": {
-    "title": "Wesprzyj Renulo",
-    "intro": "Renulo jest darmowy i bez limitów. Jeśli pomaga Ci śledzić subskrypcje, możesz wesprzeć rozwój dobrowolną darowizną.",
+    "title": "Darowizna na Renulo",
+    "intro": "Renulo jest darmowy i bez limitów. Jeśli pomaga Ci śledzić subskrypcje, możesz zostawić dobrowolną darowiznę.",
     "note": "Darowizna jest opcjonalna i nie odblokowuje dodatkowych funkcji. Płatność odbywa się w Monobank lub Revolut.",
     "monobankTitle": "Monobank (Ukraina)",
     "monobankDesc": "Darowizna w UAH przez bankę Monobank — otwiera się w aplikacji lub przeglądarce.",
@@ -158,14 +158,14 @@
     "revolutTitle": "Revolut",
     "revolutDesc": "Darowizna w EUR, GBP, USD i innych walutach przez Revolut.me.",
     "revolutButton": "Wyślij przez Revolut",
-    "settingsTitle": "Wesprzyj rozwój",
+    "settingsTitle": "Darowizna",
     "settingsDesc": "Renulo jest darmowy. Jeśli jest dla Ciebie przydatny — możesz zostawić dobrowolną darowiznę.",
-    "settingsLink": "Sposoby wsparcia"
+    "settingsLink": "Jak przekazać darowiznę"
   },
   "footer": {
     "privacy": "Polityka prywatności",
     "terms": "Regulamin",
-    "donations": "Wesprzyj",
+    "donations": "Darowizna",
     "rights": "© {year} Renulo",
     "contact": "Pytania?"
   },
