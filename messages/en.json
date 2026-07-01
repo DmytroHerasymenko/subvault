@@ -33,7 +33,7 @@
     "feature3Title": "Private & secure",
     "feature3Desc": "Your data is isolated per account. Only you can see your subscriptions.",
     "feature4Title": "Multi-currency",
-    "feature4Desc": "UAH, USD, EUR, PLN, CZK, CHF — totals in your preferred currency.",
+    "feature4Desc": "UAH, USD, EUR, PLN, CZK, CHF, GBP — totals in your preferred currency.",
     "pricingNote": "Free · unlimited subscriptions · no ads"
   },
   "auth": {
@@ -105,7 +105,8 @@
       "ua": "Ukraine",
       "pl": "Poland",
       "cz": "Czechia",
-      "ch": "Switzerland"
+      "ch": "Switzerland",
+      "gb": "the UK"
     },
     "noResults": "No subscriptions match your filters."
   },

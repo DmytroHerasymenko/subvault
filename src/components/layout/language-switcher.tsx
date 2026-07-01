@@ -58,7 +58,7 @@ export function LanguageSwitcher({ selectClassName }: { selectClassName?: string
       <Select
         value={locale}
         onChange={(e) => void switchLocale(e.target.value)}
-        className={cn(selectClass, "hidden w-full max-w-[11rem] md:block")}
+        className={cn(selectClass, "hidden w-full max-w-[12rem] md:block")}
         aria-label="Language"
       >
         {locales.map((l) => (

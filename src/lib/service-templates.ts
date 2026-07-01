@@ -1,7 +1,7 @@
 import type { AppLocale } from "@/i18n/config";
 import type { Category, Currency } from "@/lib/types";
 
-export type TemplateRegion = "us" | "eu" | "ua" | "pl" | "cz" | "ch";
+export type TemplateRegion = "us" | "eu" | "ua" | "pl" | "cz" | "ch" | "gb";
 
 export type ServiceTemplate = {
   name: string;
@@ -14,7 +14,7 @@ export type ServiceTemplate = {
 const EU_COUNTRY_CODES = new Set([
   "AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "FI", "FR", "DE", "GR", "HU",
   "IE", "IT", "LV", "LT", "LU", "MT", "NL", "PT", "RO", "SK", "SI", "ES", "SE",
-  "IS", "LI", "NO", "CH", "GB",
+  "IS", "LI", "NO", "CH",
 ]);
 
 const US_TEMPLATES: ServiceTemplate[] = [
@@ -117,6 +117,23 @@ const CH_TEMPLATES: ServiceTemplate[] = [
   { name: "Mobile plan", category: "internet", amount: 29, currency: "CHF", billing_period: "monthly" },
 ];
 
+const GB_TEMPLATES: ServiceTemplate[] = [
+  { name: "Netflix", category: "streaming", amount: 13, currency: "GBP", billing_period: "monthly" },
+  { name: "YouTube Premium", category: "streaming", amount: 13, currency: "GBP", billing_period: "monthly" },
+  { name: "Spotify", category: "streaming", amount: 11, currency: "GBP", billing_period: "monthly" },
+  { name: "Disney+", category: "streaming", amount: 8, currency: "GBP", billing_period: "monthly" },
+  { name: "Apple TV+", category: "streaming", amount: 9, currency: "GBP", billing_period: "monthly" },
+  { name: "ChatGPT Plus", category: "ai", amount: 20, currency: "GBP", billing_period: "monthly" },
+  { name: "Google Gemini", category: "ai", amount: 20, currency: "GBP", billing_period: "monthly" },
+  { name: "Claude Pro", category: "ai", amount: 20, currency: "GBP", billing_period: "monthly" },
+  { name: "Microsoft 365", category: "software", amount: 6, currency: "GBP", billing_period: "monthly" },
+  { name: "Adobe Creative Cloud", category: "software", amount: 50, currency: "GBP", billing_period: "monthly" },
+  { name: "PlayStation Plus", category: "games", amount: 7, currency: "GBP", billing_period: "monthly" },
+  { name: "Xbox Game Pass", category: "games", amount: 13, currency: "GBP", billing_period: "monthly" },
+  { name: "Internet", category: "internet", amount: 35, currency: "GBP", billing_period: "monthly" },
+  { name: "Mobile plan", category: "internet", amount: 20, currency: "GBP", billing_period: "monthly" },
+];
+
 export function resolveTemplateRegion(
   country: string | null,
   locale: AppLocale,
@@ -127,6 +144,7 @@ export function resolveTemplateRegion(
   if (code === "US") return "us";
   if (code === "CZ") return "cz";
   if (code === "CH") return "ch";
+  if (code === "GB") return "gb";
   if (code && EU_COUNTRY_CODES.has(code)) return "eu";
 
   if (locale === "ua") return "ua";
@@ -146,6 +164,8 @@ export function getServiceTemplates(region: TemplateRegion): ServiceTemplate[] {
       return CZ_TEMPLATES;
     case "ch":
       return CH_TEMPLATES;
+    case "gb":
+      return GB_TEMPLATES;
     case "us":
       return US_TEMPLATES;
     default:

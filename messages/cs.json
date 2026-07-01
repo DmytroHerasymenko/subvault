@@ -33,7 +33,7 @@
     "feature3Title": "Soukromé a bezpečné",
     "feature3Desc": "Vaše data jsou izolovaná pro každý účet. Předplatná vidíte jen vy.",
     "feature4Title": "Více měn",
-    "feature4Desc": "CZK, EUR, USD, PLN, CHF, UAH — součty ve vaší měně.",
+    "feature4Desc": "CZK, EUR, USD, PLN, CHF, GBP, UAH — součty ve vaší měně.",
     "pricingNote": "Zdarma · neomezeně · bez reklam"
   },
   "auth": {
@@ -105,7 +105,8 @@
       "ua": "Ukrajinu",
       "pl": "Polsko",
       "cz": "Česko",
-      "ch": "Švýcarsko"
+      "ch": "Švýcarsko",
+      "gb": "Spojené království"
     },
     "noResults": "Žádná předplatná neodpovídají filtrům."
   },

@@ -33,7 +33,7 @@
     "feature3Title": "Privat & sicher",
     "feature3Desc": "Deine Daten sind pro Konto isoliert. Nur du siehst deine Abos.",
     "feature4Title": "Mehrwährung",
-    "feature4Desc": "EUR, CHF, USD, PLN, CZK, UAH — Summen in deiner Währung.",
+    "feature4Desc": "EUR, CHF, USD, PLN, CZK, GBP, UAH — Summen in deiner Währung.",
     "pricingNote": "Kostenlos · unbegrenzt · keine Werbung"
   },
   "auth": {
@@ -105,7 +105,8 @@
       "ua": "die Ukraine",
       "pl": "Polen",
       "cz": "Tschechien",
-      "ch": "die Schweiz"
+      "ch": "die Schweiz",
+      "gb": "das Vereinigte Königreich"
     },
     "noResults": "Keine Abos entsprechen deinen Filtern."
   },

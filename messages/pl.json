@@ -33,7 +33,7 @@
     "feature3Title": "Prywatność",
     "feature3Desc": "Dane są izolowane dla każdego konta. Tylko Ty widzisz swoje subskrypcje.",
     "feature4Title": "Wiele walut",
-    "feature4Desc": "PLN, UAH, USD, EUR, CZK, CHF — sumy w Twojej walucie.",
+    "feature4Desc": "PLN, UAH, USD, EUR, CZK, CHF, GBP — sumy w Twojej walucie.",
     "pricingNote": "Bezpłatnie · bez limitu subskrypcji · bez reklam"
   },
   "auth": {
@@ -105,7 +105,8 @@
       "ua": "Ukrainy",
       "pl": "Polski",
       "cz": "Czech",
-      "ch": "Szwajcarii"
+      "ch": "Szwajcarii",
+      "gb": "Wielkiej Brytanii"
     },
     "noResults": "Brak subskrypcji pasujących do filtrów."
   },

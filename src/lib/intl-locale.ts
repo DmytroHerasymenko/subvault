@@ -6,6 +6,9 @@ const intlLocaleMap: Record<AppLocale, string> = {
   pl: "pl-PL",
   de: "de-DE",
   cs: "cs-CZ",
+  es: "es-ES",
+  fr: "fr-FR",
+  it: "it-IT",
 };
 
 export function toIntlLocale(locale: string): string {

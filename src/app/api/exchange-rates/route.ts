@@ -9,6 +9,7 @@ const FALLBACK: Record<Currency, number> = {
   PLN: 4.0,
   CZK: 23.5,
   CHF: 0.88,
+  GBP: 0.79,
 };
 
 export async function GET() {
@@ -28,6 +29,7 @@ export async function GET() {
       PLN: rates.PLN ?? FALLBACK.PLN,
       CZK: rates.CZK ?? FALLBACK.CZK,
       CHF: rates.CHF ?? FALLBACK.CHF,
+      GBP: rates.GBP ?? FALLBACK.GBP,
     });
   } catch {
     return NextResponse.json(FALLBACK);

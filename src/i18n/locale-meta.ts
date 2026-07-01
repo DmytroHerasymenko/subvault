@@ -7,6 +7,9 @@ export const localeMeta: Record<AppLocale, { label: string; flag: string }> = {
   pl: { label: "Polski", flag: "🇵🇱" },
   de: { label: "Deutsch", flag: "🇩🇪" },
   cs: { label: "Čeština", flag: "🇨🇿" },
+  es: { label: "Español", flag: "🇪🇸" },
+  fr: { label: "Français", flag: "🇫🇷" },
+  it: { label: "Italiano", flag: "🇮🇹" },
 };
 
 export function formatLocaleOption(locale: AppLocale) {
