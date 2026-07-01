@@ -81,6 +81,7 @@
     "cancelled": "Скасована",
     "trial": "Пробний",
     "nextBilling": "Наступне списання",
+    "nextBillingOn": "Наст. оплата: {date}",
     "notes": "Нотатки",
     "save": "Зберегти",
     "cancel": "Скасувати",

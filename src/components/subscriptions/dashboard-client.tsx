@@ -2,17 +2,24 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
+import { Pencil } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useDisplayCurrency } from "@/components/layout/display-currency-context";
 import { SubscriptionForm } from "./subscription-form";
 import { SubscriptionFiltersBar } from "./filters";
 import { DashboardStats } from "./dashboard-stats";
 import { FREE_TIER_LIMIT } from "@/lib/constants";
+import {
+  formatBillingDateDisplay,
+  getEffectiveNextBillingDate,
+} from "@/lib/billing-date";
 import { convertAmount } from "@/lib/exchange";
 import { formatMoney, monthlyAmount } from "@/lib/utils";
 import { toIntlLocale } from "@/lib/intl-locale";
-import type { Category, Currency, Subscription, SubscriptionFilters } from "@/lib/types";
+import { createClient } from "@/lib/supabase/client";
+import type { Category, Subscription, SubscriptionFilters } from "@/lib/types";
 import { CATEGORIES } from "@/lib/constants";
+import { cn } from "@/lib/utils";
 
 const defaultFilters: SubscriptionFilters & { sortBy: "amount" | "name" | "date" } = {
   category: "all",
@@ -21,6 +28,11 @@ const defaultFilters: SubscriptionFilters & { sortBy: "amount" | "name" | "date"
   search: "",
   sortBy: "amount",
 };
+
+function startEdit(sub: Subscription, setShowForm: (v: boolean) => void, setEditing: (s: Subscription) => void) {
+  setShowForm(false);
+  setEditing(sub);
+}
 
 export function DashboardClient({
   locale,
@@ -52,6 +64,46 @@ export function DashboardClient({
     setSubscriptions(initialSubs);
   }, [initialSubs]);
 
+  useEffect(() => {
+    let cancelled = false;
+
+    async function syncBillingDates() {
+      const pending = initialSubs.filter((sub) => {
+        if (!sub.next_billing_date) return false;
+        const next = getEffectiveNextBillingDate(sub.next_billing_date, sub.billing_period);
+        return next !== sub.next_billing_date;
+      });
+
+      if (pending.length === 0) {
+        if (!cancelled) setSubscriptions(initialSubs);
+        return;
+      }
+
+      const supabase = createClient();
+      const updated = await Promise.all(
+        initialSubs.map(async (sub) => {
+          if (!sub.next_billing_date) return sub;
+          const next = getEffectiveNextBillingDate(sub.next_billing_date, sub.billing_period);
+          if (next === sub.next_billing_date) return sub;
+
+          const { error } = await supabase
+            .from("subscriptions")
+            .update({ next_billing_date: next })
+            .eq("id", sub.id);
+
+          return error ? sub : { ...sub, next_billing_date: next };
+        }),
+      );
+
+      if (!cancelled) setSubscriptions(updated);
+    }
+
+    void syncBillingDates();
+    return () => {
+      cancelled = true;
+    };
+  }, [initialSubs]);
+
   const filtered = useMemo(() => {
     let list = [...subscriptions];
 
@@ -67,8 +119,10 @@ export function DashboardClient({
     list.sort((a, b) => {
       if (filters.sortBy === "name") return a.name.localeCompare(b.name);
       if (filters.sortBy === "date") {
-        const da = a.next_billing_date ?? "";
-        const db = b.next_billing_date ?? "";
+        const da =
+          getEffectiveNextBillingDate(a.next_billing_date, a.billing_period) ?? "";
+        const db =
+          getEffectiveNextBillingDate(b.next_billing_date, b.billing_period) ?? "";
         return da.localeCompare(db);
       }
       const ma = monthlyAmount(a.amount, a.billing_period);
@@ -111,7 +165,6 @@ export function DashboardClient({
   }, [subscriptions, displayCurrency]);
 
   async function refresh() {
-    const { createClient } = await import("@/lib/supabase/client");
     const supabase = createClient();
     const { data } = await supabase
       .from("subscriptions")
@@ -157,25 +210,18 @@ export function DashboardClient({
       <div className="flex items-center justify-between gap-4">
         <h2 className="text-lg font-semibold">{t("title")}</h2>
         {!showForm && !editing && (
-          <Button
-            onClick={() => setShowForm(true)}
-            disabled={atLimit}
-          >
+          <Button onClick={() => setShowForm(true)} disabled={atLimit}>
             {t("addSubscription")}
           </Button>
         )}
       </div>
 
-      {(showForm || editing) && (
+      {showForm && !editing && (
         <SubscriptionForm
           locale={locale}
           userId={userId}
-          initial={editing ?? undefined}
           onSaved={refresh}
-          onCancel={() => {
-            setShowForm(false);
-            setEditing(null);
-          }}
+          onCancel={() => setShowForm(false)}
         />
       )}
 
@@ -204,41 +250,89 @@ export function DashboardClient({
         </div>
       ) : (
         <ul className="divide-y divide-border rounded-xl border border-border bg-card">
-          {filtered.map((sub) => (
-              <li
-                key={sub.id}
-                className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 hover:bg-muted/50"
-              >
-                <div>
-                  <p className="font-medium">{sub.name}</p>
-                  <p className="text-sm text-muted-foreground">
-                    {tc(sub.category)} · {ts(sub.status)}
-                    {sub.next_billing_date && ` · ${sub.next_billing_date}`}
-                  </p>
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className="font-semibold">
+          {filtered.map((sub) => {
+            const nextBillingDate = getEffectiveNextBillingDate(
+              sub.next_billing_date,
+              sub.billing_period,
+            );
+            const isEditing = editing?.id === sub.id;
+            const periodLabel =
+              sub.billing_period === "monthly" ? ts("perMonth") : ts("perYear");
+            const converted = rates?.convertedById[sub.id];
+
+            return (
+              <li key={sub.id} className={cn(isEditing && "bg-muted/30")}>
+                <div className="flex items-center gap-2 px-3 py-2.5 sm:hidden">
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate text-sm font-medium">{sub.name}</p>
+                  </div>
+                  <span className="shrink-0 text-sm font-semibold whitespace-nowrap">
                     {formatMoney(Number(sub.amount), sub.currency, intlLocale)}
-                    <span className="text-sm font-normal text-muted-foreground">
-                      {sub.billing_period === "monthly" ? ts("perMonth") : ts("perYear")}
+                    <span className="text-xs font-normal text-muted-foreground">
+                      {periodLabel}
                     </span>
                   </span>
-                  {rates?.convertedById[sub.id] != null &&
-                    sub.currency !== displayCurrency && (
-                    <span className="text-sm text-muted-foreground">
-                      ≈ {formatMoney(rates.convertedById[sub.id], displayCurrency, intlLocale)}
-                      {ts("perMonth")}
-                    </span>
-                  )}
-                  <Button variant="outline" size="sm" onClick={() => setEditing(sub)}>
-                    {t("editSubscription")}
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="h-9 w-9 shrink-0 p-0"
+                    onClick={() => startEdit(sub, setShowForm, setEditing)}
+                    aria-label={t("editSubscription")}
+                  >
+                    <Pencil className="h-4 w-4" />
                   </Button>
                 </div>
+
+                <div className="hidden items-center justify-between gap-3 px-4 py-3 sm:flex">
+                  <div className="min-w-0">
+                    <p className="font-medium">{sub.name}</p>
+                    <p className="text-sm text-muted-foreground">
+                      {tc(sub.category)} · {ts(sub.status)}
+                      {nextBillingDate &&
+                        ` · ${ts("nextBillingOn", {
+                          date: formatBillingDateDisplay(nextBillingDate, locale),
+                        })}`}
+                    </p>
+                  </div>
+                  <div className="flex shrink-0 items-center gap-3">
+                    <span className="font-semibold">
+                      {formatMoney(Number(sub.amount), sub.currency, intlLocale)}
+                      <span className="text-sm font-normal text-muted-foreground">
+                        {periodLabel}
+                      </span>
+                    </span>
+                    {converted != null && sub.currency !== displayCurrency && (
+                      <span className="text-sm text-muted-foreground">
+                        ≈ {formatMoney(converted, displayCurrency, intlLocale)}
+                        {ts("perMonth")}
+                      </span>
+                    )}
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => startEdit(sub, setShowForm, setEditing)}
+                    >
+                      {t("editSubscription")}
+                    </Button>
+                  </div>
+                </div>
+
+                {isEditing && (
+                  <div className="border-t border-border px-3 pb-4 pt-3 sm:px-4">
+                    <SubscriptionForm
+                      locale={locale}
+                      userId={userId}
+                      initial={sub}
+                      onSaved={refresh}
+                      onCancel={() => setEditing(null)}
+                    />
+                  </div>
+                )}
               </li>
-          ))}
+            );
+          })}
         </ul>
       )}
-
     </div>
   );
 }

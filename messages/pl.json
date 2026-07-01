@@ -81,6 +81,7 @@
     "cancelled": "Anulowana",
     "trial": "Okres próbny",
     "nextBilling": "Następna płatność",
+    "nextBillingOn": "Nast. płatność: {date}",
     "notes": "Notatki",
     "save": "Zapisz",
     "cancel": "Anuluj",

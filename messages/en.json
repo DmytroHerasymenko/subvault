@@ -81,6 +81,7 @@
     "cancelled": "Cancelled",
     "trial": "Trial",
     "nextBilling": "Next billing date",
+    "nextBillingOn": "Next payment: {date}",
     "notes": "Notes",
     "save": "Save",
     "cancel": "Cancel",
