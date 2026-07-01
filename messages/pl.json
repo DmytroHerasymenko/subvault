@@ -61,6 +61,7 @@
     "totalYearly": "Równowartość roczna",
     "byCategory": "Według kategorii",
     "activeCount": "{count} aktywnych",
+    "activeCountLabel": "Aktywnych",
     "emptyTitle": "Brak subskrypcji",
     "emptyDesc": "Dodaj pierwszą subskrypcję lub wybierz szablon poniżej.",
     "limitWarning": "Plan darmowy: do {limit} subskrypcji. Premium wkrótce.",
@@ -108,7 +109,8 @@
     "sortBy": "Sortuj według",
     "sortAmount": "Kwota",
     "sortName": "Nazwa",
-    "sortDate": "Data płatności"
+    "sortDate": "Data płatności",
+    "toggle": "Filtry"
   },
   "settings": {
     "title": "Ustawienia",

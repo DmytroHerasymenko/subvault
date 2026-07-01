@@ -50,7 +50,7 @@ export default async function LocaleLayout({
     <NextIntlClientProvider messages={messages}>
       <DisplayCurrencyProvider userId={user?.id ?? null} initialCurrency={preferredCurrency}>
         <Header locale={locale} userEmail={user?.email} userId={user?.id} />
-        <main className="mx-auto max-w-5xl px-4 py-8">{children}</main>
+        <main className="mx-auto max-w-5xl px-3 py-4 sm:px-4 sm:py-8">{children}</main>
         <Footer locale={locale} />
       </DisplayCurrencyProvider>
     </NextIntlClientProvider>

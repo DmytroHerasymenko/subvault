@@ -61,6 +61,7 @@
     "totalYearly": "На рік",
     "byCategory": "По категоріях",
     "activeCount": "{count} активних",
+    "activeCountLabel": "Активних",
     "emptyTitle": "Ще немає підписок",
     "emptyDesc": "Додайте першу підписку або оберіть шаблон нижче.",
     "limitWarning": "Безкоштовний план: до {limit} підписок. Преміум скоро.",
@@ -108,7 +109,8 @@
     "sortBy": "Сортування",
     "sortAmount": "Сума",
     "sortName": "Назва",
-    "sortDate": "Дата списання"
+    "sortDate": "Дата списання",
+    "toggle": "Фільтри"
   },
   "settings": {
     "title": "Налаштування",

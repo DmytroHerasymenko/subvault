@@ -27,42 +27,55 @@ export function DashboardStats({
   const intlLocale = toIntlLocale(locale);
 
   const maxCategory = Math.max(...Object.values(byCategory), 1);
+  const statCardClass = "p-2.5 sm:p-5";
 
   return (
-    <div className="space-y-4">
-      <div className="grid gap-4 sm:grid-cols-3">
-        <Card>
-          <CardTitle>{t("totalMonthly")}</CardTitle>
-          <CardValue>{formatMoney(totalMonthly, currency, intlLocale)}</CardValue>
+    <div className="space-y-3 sm:space-y-4">
+      <div className="grid grid-cols-3 gap-2 sm:gap-4">
+        <Card className={statCardClass}>
+          <CardTitle className="text-[10px] leading-tight sm:text-sm">
+            {t("totalMonthly")}
+          </CardTitle>
+          <CardValue className="mt-0.5 text-sm leading-tight sm:mt-1 sm:text-2xl">
+            {formatMoney(totalMonthly, currency, intlLocale)}
+          </CardValue>
         </Card>
-        <Card>
-          <CardTitle>{t("totalYearly")}</CardTitle>
-          <CardValue>{formatMoney(totalYearly, currency, intlLocale)}</CardValue>
+        <Card className={statCardClass}>
+          <CardTitle className="text-[10px] leading-tight sm:text-sm">
+            {t("totalYearly")}
+          </CardTitle>
+          <CardValue className="mt-0.5 text-sm leading-tight sm:mt-1 sm:text-2xl">
+            {formatMoney(totalYearly, currency, intlLocale)}
+          </CardValue>
         </Card>
-        <Card>
-          <CardTitle>{t("activeCount", { count: activeCount })}</CardTitle>
-          <CardValue>{activeCount}</CardValue>
+        <Card className={statCardClass}>
+          <CardTitle className="text-[10px] leading-tight sm:text-sm">
+            {t("activeCountLabel")}
+          </CardTitle>
+          <CardValue className="mt-0.5 text-sm leading-tight sm:mt-1 sm:text-2xl">
+            {activeCount}
+          </CardValue>
         </Card>
       </div>
 
-      <Card>
-        <CardTitle className="mb-4">{t("byCategory")}</CardTitle>
-        <div className="space-y-3">
+      <Card className="p-3 sm:p-5">
+        <CardTitle className="mb-3 text-xs sm:mb-4 sm:text-sm">{t("byCategory")}</CardTitle>
+        <div className="space-y-2.5 sm:space-y-3">
           {CATEGORIES.map((cat) => {
             const amount = byCategory[cat] ?? 0;
             if (amount <= 0) return null;
             const pct = (amount / maxCategory) * 100;
             return (
               <div key={cat}>
-                <div className="mb-1 flex justify-between text-sm">
-                  <span>{tc(cat)}</span>
-                  <span className="font-medium">
+                <div className="mb-1 flex justify-between gap-2 text-xs sm:text-sm">
+                  <span className="truncate">{tc(cat)}</span>
+                  <span className="shrink-0 font-medium">
                     {formatMoney(amount, currency, intlLocale)}
                   </span>
                 </div>
-                <div className="h-2 rounded-full bg-muted">
+                <div className="h-1.5 rounded-full bg-muted sm:h-2">
                   <div
-                    className="h-2 rounded-full bg-primary transition-all"
+                    className="h-1.5 rounded-full bg-primary transition-all sm:h-2"
                     style={{ width: `${pct}%` }}
                   />
                 </div>

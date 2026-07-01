@@ -130,7 +130,7 @@ export function DashboardClient({
     filters.billing_period !== "all";
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {rates && (
         <DashboardStats
           totalMonthly={rates.monthly}

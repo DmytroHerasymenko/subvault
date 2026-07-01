@@ -61,6 +61,7 @@
     "totalYearly": "Yearly equivalent",
     "byCategory": "By category",
     "activeCount": "{count} active",
+    "activeCountLabel": "Active",
     "emptyTitle": "No subscriptions yet",
     "emptyDesc": "Add your first subscription or pick a template below.",
     "limitWarning": "Free plan: up to {limit} subscriptions. Upgrade coming soon.",
@@ -108,7 +109,8 @@
     "sortBy": "Sort by",
     "sortAmount": "Amount",
     "sortName": "Name",
-    "sortDate": "Next billing"
+    "sortDate": "Next billing",
+    "toggle": "Filters"
   },
   "settings": {
     "title": "Settings",
