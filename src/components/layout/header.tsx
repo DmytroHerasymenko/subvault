@@ -23,10 +23,10 @@ const currencySelectClass =
   "h-11 min-h-11 w-full max-w-[4rem] shrink-0 py-2 pl-1.5 pr-7 text-xs font-medium sm:w-auto sm:min-w-[4.5rem] sm:max-w-[5.5rem] sm:pl-2.5 sm:pr-8 sm:text-sm";
 
 const navGroupClass =
-  "grid min-w-0 flex-1 place-items-center gap-0.5 sm:flex sm:flex-nowrap sm:justify-end sm:gap-2 md:gap-3";
+  "grid min-w-0 flex-1 place-items-center gap-0.5 sm:gap-1 md:gap-2";
 
 const guestNavGroupClass =
-  "grid min-w-0 flex-1 grid-cols-3 place-items-center gap-1 sm:flex sm:flex-nowrap sm:justify-end sm:gap-2";
+  "grid min-w-0 flex-1 grid-cols-3 place-items-center gap-1 sm:gap-2";
 
 function NavIconLink({
   href,
@@ -86,7 +86,7 @@ export function Header({
           <div
             className={cn(
               navGroupClass,
-              userId ? "grid-cols-5" : "grid-cols-4",
+              userId ? "grid-cols-5 lg:grid-cols-6" : "grid-cols-4 lg:grid-cols-5",
             )}
           >
             <NavIconLink href={`/${locale}/dashboard`} label={t("dashboard")}>
@@ -108,14 +108,13 @@ export function Header({
               <Settings className="h-5 w-5" />
             </NavIconLink>
 
-            <span className="hidden shrink-0 text-sm text-muted-foreground lg:inline">
+            <span className="hidden max-w-full truncate text-sm text-muted-foreground lg:inline">
               {userEmail}
             </span>
 
             <Button
               variant="outline"
-              size="sm"
-              className="h-11 w-11 shrink-0 px-0 sm:min-w-11 sm:px-3"
+              className="inline-flex h-11 w-11 shrink-0 items-center justify-center px-0 sm:w-auto sm:px-3"
               onClick={logout}
               title={t("logout")}
               aria-label={t("logout")}
