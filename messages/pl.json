@@ -90,7 +90,13 @@
     "perMonth": "/mies.",
     "perYear": "/rok",
     "templates": "Szybkie dodawanie",
-    "templatesHint": "Szablony wstawiają orientacyjną kwotę i walutę — dostosuj do swojego planu.",
+    "templatesHint": "Szablony wstawiają orientacyjne wartości dla {region} — dostosuj do swojego planu. Szare pola możesz edytować.",
+    "templateRegions": {
+      "us": "USA",
+      "eu": "UE",
+      "ua": "Ukrainy",
+      "pl": "Polski"
+    },
     "noResults": "Brak subskrypcji pasujących do filtrów."
   },
   "categories": {

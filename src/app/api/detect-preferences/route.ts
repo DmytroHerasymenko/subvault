@@ -4,6 +4,8 @@ import {
   resolveDefaultCurrency,
   resolveDefaultLocale,
 } from "@/lib/locale-preferences";
+import { resolveTemplateRegion } from "@/lib/service-templates";
+import type { AppLocale } from "@/i18n/config";
 
 export async function GET() {
   const headerStore = await headers();
@@ -12,6 +14,7 @@ export async function GET() {
 
   const locale = resolveDefaultLocale(acceptLanguage);
   const currency = resolveDefaultCurrency(country, locale);
+  const region = resolveTemplateRegion(country, locale as AppLocale);
 
-  return NextResponse.json({ locale, currency });
+  return NextResponse.json({ locale, currency, region });
 }

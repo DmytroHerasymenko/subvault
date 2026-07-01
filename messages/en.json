@@ -90,7 +90,13 @@
     "perMonth": "/mo",
     "perYear": "/yr",
     "templates": "Quick add",
-    "templatesHint": "Templates fill in approximate amounts and currency — adjust to match your plan.",
+    "templatesHint": "Templates use approximate values for {region} — adjust to match your plan. Gray fields are suggestions you can edit.",
+    "templateRegions": {
+      "us": "the US",
+      "eu": "the EU",
+      "ua": "Ukraine",
+      "pl": "Poland"
+    },
     "noResults": "No subscriptions match your filters."
   },
   "categories": {

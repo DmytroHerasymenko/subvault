@@ -1,15 +1,21 @@
 import type { AppLocale } from "@/i18n/config";
 import type { Currency } from "@/lib/types";
+import type { TemplateRegion } from "@/lib/service-templates";
 
 export async function fetchDetectedPreferences(): Promise<{
   locale: AppLocale;
   currency: Currency;
+  region: TemplateRegion;
 }> {
   const res = await fetch("/api/detect-preferences");
   if (!res.ok) {
-    return { locale: "en", currency: "EUR" };
+    return { locale: "en", currency: "EUR", region: "eu" };
   }
-  return (await res.json()) as { locale: AppLocale; currency: Currency };
+  return (await res.json()) as {
+    locale: AppLocale;
+    currency: Currency;
+    region: TemplateRegion;
+  };
 }
 
 export async function saveProfilePreferences(
