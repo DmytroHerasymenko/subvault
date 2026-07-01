@@ -12,10 +12,19 @@
   },
   "landing": {
     "badge": "Subscription tracker",
+    "hook": "How much do you pay for subscriptions each month? Most people don't know exactly.",
     "title": "All your subscriptions in one place",
-    "subtitle": "Netflix, YouTube, Gemini, internet and more — track spending, filter by category, and see your monthly total.",
+    "subtitle": "Netflix, YouTube, ChatGPT, internet and more — track spending, filter by category, and see your monthly total.",
     "ctaPrimary": "Get started free",
     "ctaSecondary": "Log in",
+    "ctaHint": "Sign up in 30 seconds · email or Google",
+    "stepsTitle": "How it works",
+    "step1Title": "1. Create an account",
+    "step1Desc": "Email or Google — quick and free.",
+    "step2Title": "2. Add subscriptions",
+    "step2Desc": "Pick a Netflix or ChatGPT template — or enter your own.",
+    "step3Title": "3. See your total",
+    "step3Desc": "Monthly, yearly, and by category — in your preferred currency.",
     "featuresTitle": "Why Renulo?",
     "feature1Title": "One dashboard",
     "feature1Desc": "All subscriptions with amount, currency, and renewal date.",
@@ -24,8 +33,8 @@
     "feature3Title": "Private & secure",
     "feature3Desc": "Your data is isolated per account. Only you can see your subscriptions.",
     "feature4Title": "Multi-currency",
-    "feature4Desc": "UAH, USD, EUR — totals in your preferred currency.",
-    "pricingNote": "Free while we grow. Premium plans coming later."
+    "feature4Desc": "UAH, USD, EUR, PLN — totals in your preferred currency.",
+    "pricingNote": "Free · unlimited subscriptions · no ads"
   },
   "auth": {
     "loginTitle": "Welcome back",
@@ -64,7 +73,6 @@
     "activeCountLabel": "Active",
     "emptyTitle": "No subscriptions yet",
     "emptyDesc": "Add your first subscription or pick a template below.",
-    "limitWarning": "Free plan: up to {limit} subscriptions. Upgrade coming soon.",
     "conversionNote": "Converted to {currency} at approximate rates.",
     "clearFilters": "Clear filters"
   },

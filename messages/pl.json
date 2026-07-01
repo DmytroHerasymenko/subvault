@@ -12,10 +12,19 @@
   },
   "landing": {
     "badge": "Tracker subskrypcji",
+    "hook": "Ile płacisz miesięcznie za subskrypcje? Większość ludzi nie zna dokładnej kwoty.",
     "title": "Wszystkie subskrypcje w jednym miejscu",
-    "subtitle": "Netflix, YouTube, Gemini, internet i inne — śledź wydatki, filtruj według kategorii i zobacz sumę miesięczną.",
+    "subtitle": "Netflix, YouTube, ChatGPT, internet i inne — śledź wydatki, filtruj według kategorii i zobacz sumę miesięczną.",
     "ctaPrimary": "Zacznij za darmo",
     "ctaSecondary": "Zaloguj się",
+    "ctaHint": "Rejestracja w 30 sekund · email lub Google",
+    "stepsTitle": "Jak zacząć",
+    "step1Title": "1. Utwórz konto",
+    "step1Desc": "Email lub Google — szybko i za darmo.",
+    "step2Title": "2. Dodaj subskrypcje",
+    "step2Desc": "Wybierz szablon Netflix lub ChatGPT — albo wpisz ręcznie.",
+    "step3Title": "3. Zobacz sumę",
+    "step3Desc": "Miesięcznie, rocznie i według kategorii — w wybranej walucie.",
     "featuresTitle": "Dlaczego Renulo?",
     "feature1Title": "Jeden panel",
     "feature1Desc": "Wszystkie subskrypcje z kwotą, walutą i datą następnej płatności.",
@@ -25,7 +34,7 @@
     "feature3Desc": "Dane są izolowane dla każdego konta. Tylko Ty widzisz swoje subskrypcje.",
     "feature4Title": "Wiele walut",
     "feature4Desc": "PLN, UAH, USD, EUR — sumy w Twojej walucie.",
-    "pricingNote": "Bezpłatnie na start. Plany premium wkrótce."
+    "pricingNote": "Bezpłatnie · bez limitu subskrypcji · bez reklam"
   },
   "auth": {
     "loginTitle": "Witaj ponownie",
@@ -64,7 +73,6 @@
     "activeCountLabel": "Aktywnych",
     "emptyTitle": "Brak subskrypcji",
     "emptyDesc": "Dodaj pierwszą subskrypcję lub wybierz szablon poniżej.",
-    "limitWarning": "Plan darmowy: do {limit} subskrypcji. Premium wkrótce.",
     "conversionNote": "Przeliczone na {currency} według przybliżonych kursów.",
     "clearFilters": "Wyczyść filtry"
   },

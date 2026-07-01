@@ -8,7 +8,6 @@ import { useDisplayCurrency } from "@/components/layout/display-currency-context
 import { SubscriptionForm } from "./subscription-form";
 import { SubscriptionFiltersBar } from "./filters";
 import { DashboardStats } from "./dashboard-stats";
-import { FREE_TIER_LIMIT } from "@/lib/constants";
 import {
   formatBillingDateCompact,
   formatBillingDateDisplay,
@@ -223,7 +222,6 @@ export function DashboardClient({
     setEditing(null);
   }
 
-  const atLimit = subscriptions.length >= FREE_TIER_LIMIT;
   const hasFilters =
     filters.search !== "" ||
     filters.category !== "all" ||
@@ -243,12 +241,6 @@ export function DashboardClient({
         />
       )}
 
-      {atLimit && (
-        <p className="text-sm text-muted-foreground">
-          {t("limitWarning", { limit: FREE_TIER_LIMIT })}
-        </p>
-      )}
-
       <p className="text-xs text-muted-foreground">
         {t("conversionNote", { currency: displayCurrency })}
       </p>
@@ -258,7 +250,7 @@ export function DashboardClient({
       <div className="flex items-center justify-between gap-4">
         <h2 className="text-lg font-semibold">{t("title")}</h2>
         {!showForm && !editing && (
-          <Button onClick={() => setShowForm(true)} disabled={atLimit}>
+          <Button onClick={() => setShowForm(true)}>
             {t("addSubscription")}
           </Button>
         )}

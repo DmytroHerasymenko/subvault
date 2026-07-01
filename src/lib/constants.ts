@@ -20,5 +20,3 @@ export const CATEGORIES: Category[] = [
   "games",
   "other",
 ];
-
-export const FREE_TIER_LIMIT = 15;
