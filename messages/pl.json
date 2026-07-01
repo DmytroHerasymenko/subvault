@@ -90,6 +90,7 @@
     "perMonth": "/mies.",
     "perYear": "/rok",
     "templates": "Szybkie dodawanie",
+    "templatesHint": "Szablony wstawiają orientacyjną kwotę i walutę — dostosuj do swojego planu.",
     "noResults": "Brak subskrypcji pasujących do filtrów."
   },
   "categories": {
@@ -126,12 +127,15 @@
     "deleteConfirmButton": "Usuń trwale",
     "deleteCancel": "Anuluj",
     "deleteLoading": "Usuwanie…",
-    "deleteError": "Nie można usunąć konta. Spróbuj ponownie lub skontaktuj się z pomocą."
+    "deleteError": "Nie można usunąć konta. Spróbuj ponownie lub skontaktuj się z pomocą.",
+    "supportTitle": "Wsparcie",
+    "supportDesc": "W sprawach Renulo napisz na:"
   },
   "footer": {
     "privacy": "Polityka prywatności",
     "terms": "Regulamin",
-    "rights": "© {year} Renulo"
+    "rights": "© {year} Renulo",
+    "contact": "Pytania?"
   },
   "legal": {
     "lastUpdated": "Ostatnia aktualizacja: {date}",

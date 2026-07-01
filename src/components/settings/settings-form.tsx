@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { SUPPORT_EMAIL } from "@/lib/constants";
 
 export function SettingsForm({
   locale,
@@ -44,6 +45,17 @@ export function SettingsForm({
   return (
     <div className="max-w-sm space-y-8">
       <h1 className="text-xl font-bold">{t("title")}</h1>
+
+      <section className="rounded-xl border border-border bg-card p-5">
+        <h2 className="text-lg font-semibold">{t("supportTitle")}</h2>
+        <p className="mt-2 text-sm text-muted-foreground">{t("supportDesc")}</p>
+        <a
+          href={`mailto:${SUPPORT_EMAIL}`}
+          className="mt-2 inline-block text-sm font-medium text-primary underline-offset-4 hover:underline"
+        >
+          {SUPPORT_EMAIL}
+        </a>
+      </section>
 
       <section className="rounded-xl border border-destructive/30 bg-card p-5">
         <h2 className="text-lg font-semibold text-destructive">{t("deleteTitle")}</h2>

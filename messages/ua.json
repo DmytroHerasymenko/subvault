@@ -90,6 +90,7 @@
     "perMonth": "/міс",
     "perYear": "/рік",
     "templates": "Швидке додавання",
+    "templatesHint": "Шаблони підставляють орієнтовну суму та валюту — змініть під свій тариф.",
     "noResults": "Немає підписок за вашими фільтрами."
   },
   "categories": {
@@ -126,12 +127,15 @@
     "deleteConfirmButton": "Видалити назавжди",
     "deleteCancel": "Скасувати",
     "deleteLoading": "Видалення…",
-    "deleteError": "Не вдалося видалити акаунт. Спробуйте ще раз або напишіть у підтримку."
+    "deleteError": "Не вдалося видалити акаунт. Спробуйте ще раз або напишіть у підтримку.",
+    "supportTitle": "Підтримка",
+    "supportDesc": "З питань щодо Renulo пишіть на:"
   },
   "footer": {
     "privacy": "Політика конфіденційності",
     "terms": "Умови використання",
-    "rights": "© {year} Renulo"
+    "rights": "© {year} Renulo",
+    "contact": "Питання?"
   },
   "legal": {
     "lastUpdated": "Оновлено: {date}",

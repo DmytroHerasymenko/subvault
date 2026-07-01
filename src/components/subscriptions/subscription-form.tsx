@@ -111,11 +111,18 @@ export function SubscriptionForm({
           <Label className="mb-2 block">{t("templates")}</Label>
           <div className="flex flex-wrap gap-2">
             {SERVICE_TEMPLATES.map((tpl, i) => (
-              <Button key={tpl.name} type="button" variant="outline" size="sm" onClick={() => applyTemplate(i)}>
+              <Button
+                key={`${tpl.name}-${tpl.currency}-${i}`}
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={() => applyTemplate(i)}
+              >
                 {tpl.name}
               </Button>
             ))}
           </div>
+          <p className="mt-2 text-xs text-muted-foreground">{t("templatesHint")}</p>
         </div>
       )}
 

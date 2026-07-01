@@ -90,6 +90,7 @@
     "perMonth": "/mo",
     "perYear": "/yr",
     "templates": "Quick add",
+    "templatesHint": "Templates fill in approximate amounts and currency — adjust to match your plan.",
     "noResults": "No subscriptions match your filters."
   },
   "categories": {
@@ -126,12 +127,15 @@
     "deleteConfirmButton": "Permanently delete",
     "deleteCancel": "Cancel",
     "deleteLoading": "Deleting…",
-    "deleteError": "Could not delete account. Please try again or contact support."
+    "deleteError": "Could not delete account. Please try again or contact support.",
+    "supportTitle": "Support",
+    "supportDesc": "For questions about Renulo, email us at:"
   },
   "footer": {
     "privacy": "Privacy Policy",
     "terms": "Terms of Service",
-    "rights": "© {year} Renulo"
+    "rights": "© {year} Renulo",
+    "contact": "Questions?"
   },
   "legal": {
     "lastUpdated": "Last updated: {date}",
