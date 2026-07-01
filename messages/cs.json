@@ -148,9 +148,24 @@
     "supportTitle": "Podpora",
     "supportDesc": "Dotazy k Renulo? Napište nám na:"
   },
+  "donations": {
+    "title": "Podpořte Renulo",
+    "intro": "Renulo je zdarma a neomezené. Pokud vám pomáhá sledovat předplatná, můžete dobrovolně podpořit vývoj.",
+    "note": "Dar je dobrovolný a neodemyká další funkce. Platba probíhá přes Monobank nebo Revolut.",
+    "monobankTitle": "Monobank (Ukrajina)",
+    "monobankDesc": "Dar v UAH přes Monobank jar — otevře se v aplikaci nebo prohlížeči.",
+    "monobankButton": "Otevřít Monobank jar",
+    "revolutTitle": "Revolut",
+    "revolutDesc": "Dar v EUR, GBP, USD a dalších měnách přes Revolut.me.",
+    "revolutButton": "Poslat přes Revolut",
+    "settingsTitle": "Podpořit vývoj",
+    "settingsDesc": "Renulo je zdarma. Pokud je pro vás užitečné, můžete zanechat dobrovolný dar.",
+    "settingsLink": "Způsoby podpory"
+  },
   "footer": {
     "privacy": "Ochrana údajů",
     "terms": "Podmínky",
+    "donations": "Podpořit",
     "rights": "© {year} Renulo",
     "contact": "Dotazy?"
   },

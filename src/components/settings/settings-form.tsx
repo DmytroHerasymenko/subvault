@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -15,6 +16,7 @@ export function SettingsForm({
   userEmail: string;
 }) {
   const t = useTranslations("settings");
+  const tDonations = useTranslations("donations");
   const router = useRouter();
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [deleteConfirm, setDeleteConfirm] = useState("");
@@ -45,6 +47,17 @@ export function SettingsForm({
   return (
     <div className="max-w-sm space-y-8">
       <h1 className="text-xl font-bold">{t("title")}</h1>
+
+      <section className="rounded-xl border border-border bg-card p-5">
+        <h2 className="text-lg font-semibold">{tDonations("settingsTitle")}</h2>
+        <p className="mt-2 text-sm text-muted-foreground">{tDonations("settingsDesc")}</p>
+        <Link
+          href={`/${locale}/donations`}
+          className="mt-4 inline-flex h-10 items-center justify-center rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground hover:bg-indigo-600"
+        >
+          {tDonations("settingsLink")}
+        </Link>
+      </section>
 
       <section className="rounded-xl border border-border bg-card p-5">
         <h2 className="text-lg font-semibold">{t("supportTitle")}</h2>

@@ -148,9 +148,24 @@
     "supportTitle": "Support",
     "supportDesc": "Questions sur Renulo ? Écrivez-nous à :"
   },
+  "donations": {
+    "title": "Soutenir Renulo",
+    "intro": "Renulo est gratuit et illimité. S'il vous aide à suivre vos abonnements, vous pouvez soutenir le développement par un don volontaire.",
+    "note": "Le don est facultatif et ne débloque pas de fonctionnalités supplémentaires. Le paiement se fait via Monobank ou Revolut.",
+    "monobankTitle": "Monobank (Ukraine)",
+    "monobankDesc": "Don en UAH via Monobank jar — s'ouvre dans l'app ou le navigateur.",
+    "monobankButton": "Ouvrir Monobank jar",
+    "revolutTitle": "Revolut",
+    "revolutDesc": "Don en EUR, GBP, USD et autres devises via Revolut.me.",
+    "revolutButton": "Envoyer via Revolut",
+    "settingsTitle": "Soutenir le développement",
+    "settingsDesc": "Renulo est gratuit. S'il vous est utile, vous pouvez laisser un don volontaire.",
+    "settingsLink": "Moyens de donner"
+  },
   "footer": {
     "privacy": "Confidentialité",
     "terms": "Conditions",
+    "donations": "Soutenir",
     "rights": "© {year} Renulo",
     "contact": "Questions ?"
   },

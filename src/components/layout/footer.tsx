@@ -31,7 +31,10 @@ export async function Footer({ locale }: { locale: string }) {
             </a>
           </span>
         </p>
-        <nav className="flex shrink-0 gap-4">
+        <nav className="flex shrink-0 flex-wrap justify-center gap-4 sm:justify-end">
+          <Link href={`/${locale}/donations`} className="hover:text-foreground">
+            {t("donations")}
+          </Link>
           <Link href={`/${locale}/privacy`} className="hover:text-foreground">
             {t("privacy")}
           </Link>
