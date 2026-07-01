@@ -6,6 +6,8 @@ const LOCALE_ALIASES: Record<string, AppLocale> = {
   uk: "ua",
   en: "en",
   pl: "pl",
+  de: "de",
+  cs: "cs",
 };
 
 export function parseAcceptLanguage(header: string | null): AppLocale | null {
@@ -37,6 +39,10 @@ export function currencyForCountry(country: string | null): Currency {
       return "UAH";
     case "PL":
       return "PLN";
+    case "CZ":
+      return "CZK";
+    case "CH":
+      return "CHF";
     case "US":
       return "USD";
     default:
@@ -50,6 +56,8 @@ export function currencyForLocale(locale: AppLocale): Currency {
       return "UAH";
     case "pl":
       return "PLN";
+    case "cs":
+      return "CZK";
     default:
       return "EUR";
   }

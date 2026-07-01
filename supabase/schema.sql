@@ -5,8 +5,8 @@
 create table if not exists public.profiles (
   id uuid references auth.users on delete cascade primary key,
   display_name text,
-  preferred_currency text not null default 'EUR' check (preferred_currency in ('UAH', 'USD', 'EUR', 'PLN')),
-  locale text not null default 'en' check (locale in ('ua', 'en', 'pl')),
+  preferred_currency text not null default 'EUR' check (preferred_currency in ('UAH', 'USD', 'EUR', 'PLN', 'CZK', 'CHF')),
+  locale text not null default 'en' check (locale in ('ua', 'en', 'pl', 'de', 'cs')),
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
@@ -17,7 +17,7 @@ create table if not exists public.subscriptions (
   user_id uuid references auth.users on delete cascade not null,
   name text not null,
   amount numeric(12, 2) not null check (amount >= 0),
-  currency text not null check (currency in ('UAH', 'USD', 'EUR', 'PLN')),
+  currency text not null check (currency in ('UAH', 'USD', 'EUR', 'PLN', 'CZK', 'CHF')),
   billing_period text not null check (billing_period in ('monthly', 'yearly')),
   category text not null check (category in ('streaming', 'internet', 'ai', 'software', 'games', 'other')),
   status text not null default 'active' check (status in ('active', 'cancelled', 'trial')),

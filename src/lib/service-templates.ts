@@ -1,7 +1,7 @@
 import type { AppLocale } from "@/i18n/config";
 import type { Category, Currency } from "@/lib/types";
 
-export type TemplateRegion = "us" | "eu" | "ua" | "pl";
+export type TemplateRegion = "us" | "eu" | "ua" | "pl" | "cz" | "ch";
 
 export type ServiceTemplate = {
   name: string;
@@ -83,6 +83,40 @@ const PL_TEMPLATES: ServiceTemplate[] = [
   { name: "Mobile plan", category: "internet", amount: 50, currency: "PLN", billing_period: "monthly" },
 ];
 
+const CZ_TEMPLATES: ServiceTemplate[] = [
+  { name: "Netflix", category: "streaming", amount: 259, currency: "CZK", billing_period: "monthly" },
+  { name: "YouTube Premium", category: "streaming", amount: 199, currency: "CZK", billing_period: "monthly" },
+  { name: "Spotify", category: "streaming", amount: 169, currency: "CZK", billing_period: "monthly" },
+  { name: "Disney+", category: "streaming", amount: 199, currency: "CZK", billing_period: "monthly" },
+  { name: "Apple TV+", category: "streaming", amount: 229, currency: "CZK", billing_period: "monthly" },
+  { name: "ChatGPT Plus", category: "ai", amount: 480, currency: "CZK", billing_period: "monthly" },
+  { name: "Google Gemini", category: "ai", amount: 480, currency: "CZK", billing_period: "monthly" },
+  { name: "Claude Pro", category: "ai", amount: 480, currency: "CZK", billing_period: "monthly" },
+  { name: "Microsoft 365", category: "software", amount: 269, currency: "CZK", billing_period: "monthly" },
+  { name: "Adobe Creative Cloud", category: "software", amount: 1500, currency: "CZK", billing_period: "monthly" },
+  { name: "PlayStation Plus", category: "games", amount: 299, currency: "CZK", billing_period: "monthly" },
+  { name: "Xbox Game Pass", category: "games", amount: 449, currency: "CZK", billing_period: "monthly" },
+  { name: "Internet", category: "internet", amount: 599, currency: "CZK", billing_period: "monthly" },
+  { name: "Mobile plan", category: "internet", amount: 399, currency: "CZK", billing_period: "monthly" },
+];
+
+const CH_TEMPLATES: ServiceTemplate[] = [
+  { name: "Netflix", category: "streaming", amount: 18, currency: "CHF", billing_period: "monthly" },
+  { name: "YouTube Premium", category: "streaming", amount: 16, currency: "CHF", billing_period: "monthly" },
+  { name: "Spotify", category: "streaming", amount: 13, currency: "CHF", billing_period: "monthly" },
+  { name: "Disney+", category: "streaming", amount: 13, currency: "CHF", billing_period: "monthly" },
+  { name: "Apple TV+", category: "streaming", amount: 12, currency: "CHF", billing_period: "monthly" },
+  { name: "ChatGPT Plus", category: "ai", amount: 20, currency: "CHF", billing_period: "monthly" },
+  { name: "Google Gemini", category: "ai", amount: 20, currency: "CHF", billing_period: "monthly" },
+  { name: "Claude Pro", category: "ai", amount: 20, currency: "CHF", billing_period: "monthly" },
+  { name: "Microsoft 365", category: "software", amount: 10, currency: "CHF", billing_period: "monthly" },
+  { name: "Adobe Creative Cloud", category: "software", amount: 60, currency: "CHF", billing_period: "monthly" },
+  { name: "PlayStation Plus", category: "games", amount: 10, currency: "CHF", billing_period: "monthly" },
+  { name: "Xbox Game Pass", category: "games", amount: 17, currency: "CHF", billing_period: "monthly" },
+  { name: "Internet", category: "internet", amount: 49, currency: "CHF", billing_period: "monthly" },
+  { name: "Mobile plan", category: "internet", amount: 29, currency: "CHF", billing_period: "monthly" },
+];
+
 export function resolveTemplateRegion(
   country: string | null,
   locale: AppLocale,
@@ -91,10 +125,13 @@ export function resolveTemplateRegion(
   if (code === "UA") return "ua";
   if (code === "PL") return "pl";
   if (code === "US") return "us";
+  if (code === "CZ") return "cz";
+  if (code === "CH") return "ch";
   if (code && EU_COUNTRY_CODES.has(code)) return "eu";
 
   if (locale === "ua") return "ua";
   if (locale === "pl") return "pl";
+  if (locale === "cs") return "cz";
 
   return "eu";
 }
@@ -105,6 +142,10 @@ export function getServiceTemplates(region: TemplateRegion): ServiceTemplate[] {
       return UA_TEMPLATES;
     case "pl":
       return PL_TEMPLATES;
+    case "cz":
+      return CZ_TEMPLATES;
+    case "ch":
+      return CH_TEMPLATES;
     case "us":
       return US_TEMPLATES;
     default:

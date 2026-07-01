@@ -11,6 +11,8 @@ const FALLBACK_RATES_PER_USD: Record<Currency, number> = {
   EUR: 0.92,
   UAH: 41,
   PLN: 4.0,
+  CZK: 23.5,
+  CHF: 0.88,
 };
 
 let cachedRates: Record<Currency, number> | null = null;
@@ -35,6 +37,8 @@ async function loadRatesPerUsd(): Promise<Record<Currency, number>> {
       EUR: data.EUR ?? FALLBACK_RATES_PER_USD.EUR,
       UAH: data.UAH ?? FALLBACK_RATES_PER_USD.UAH,
       PLN: data.PLN ?? FALLBACK_RATES_PER_USD.PLN,
+      CZK: data.CZK ?? FALLBACK_RATES_PER_USD.CZK,
+      CHF: data.CHF ?? FALLBACK_RATES_PER_USD.CHF,
     };
     cacheTime = now;
     return cachedRates;

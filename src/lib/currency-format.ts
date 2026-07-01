@@ -2,7 +2,7 @@ import { toIntlLocale } from "@/lib/intl-locale";
 import type { Currency } from "@/lib/types";
 
 /** Single source of truth — extend when adding currencies (also update Currency type). */
-export const SUPPORTED_CURRENCIES = ["UAH", "USD", "EUR", "PLN"] as const satisfies readonly Currency[];
+export const SUPPORTED_CURRENCIES = ["UAH", "USD", "EUR", "PLN", "CZK", "CHF"] as const satisfies readonly Currency[];
 
 export function isCurrency(value: string): value is Currency {
   return (SUPPORTED_CURRENCIES as readonly string[]).includes(value);

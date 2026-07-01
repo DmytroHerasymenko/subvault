@@ -11,9 +11,11 @@ import { formatCurrencyLabel } from "@/lib/currency-format";
 import { fetchDetectedPreferences } from "@/lib/profile-preferences";
 import {
   getServiceTemplates,
+  resolveTemplateRegion,
   type ServiceTemplate,
   type TemplateRegion,
 } from "@/lib/service-templates";
+import type { AppLocale } from "@/i18n/config";
 import type { Subscription, SubscriptionFormData } from "@/lib/types";
 import { createClient } from "@/lib/supabase/client";
 
@@ -55,12 +57,11 @@ export function SubscriptionForm({
 }) {
   const t = useTranslations("subscription");
   const tc = useTranslations("categories");
+  const initialRegion = resolveTemplateRegion(null, locale as AppLocale);
   const [templates, setTemplates] = useState<ServiceTemplate[]>(() =>
-    getServiceTemplates(locale === "ua" ? "ua" : locale === "pl" ? "pl" : "eu"),
+    getServiceTemplates(initialRegion),
   );
-  const [templateRegion, setTemplateRegion] = useState<TemplateRegion>(
-    locale === "ua" ? "ua" : locale === "pl" ? "pl" : "eu",
-  );
+  const [templateRegion, setTemplateRegion] = useState<TemplateRegion>(initialRegion);
   const [form, setForm] = useState<SubscriptionFormData>(
     initial
       ? {
