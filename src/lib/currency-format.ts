@@ -68,12 +68,21 @@ export function formatMoney(
   return formatMoneyStandard(amount, currency, appLocale);
 }
 
+/** When Intl narrowSymbol equals the ISO code, use a distinct prefix in labels. */
+const LABEL_SYMBOL_FALLBACKS: Partial<Record<Currency, string>> = {
+  CHF: "Fr.",
+};
+
 export function getCurrencySymbol(currency: Currency, appLocale: string): string {
   const symbol = formatParts(0, currency, appLocale, "narrowSymbol").find(
     (part) => part.type === "currency",
-  )?.value;
+  )?.value?.trim();
 
-  return symbol?.trim() || currency;
+  if (!symbol) return LABEL_SYMBOL_FALLBACKS[currency] ?? currency;
+  if (symbol.toUpperCase() === currency && LABEL_SYMBOL_FALLBACKS[currency]) {
+    return LABEL_SYMBOL_FALLBACKS[currency];
+  }
+  return symbol;
 }
 
 /** Select labels: symbol + code where helpful (e.g. "$ USD"). */
