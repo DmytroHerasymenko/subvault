@@ -1,4 +1,4 @@
-import type { Category, Currency } from "./types";
+import type { Category } from "./types";
 
 export const APP_NAME = "Renulo";
 
@@ -10,7 +10,7 @@ export const APP_URL =
   process.env.NEXT_PUBLIC_SITE_URL?.trim().replace(/\/$/, "") ||
   "https://renulo.vercel.app";
 
-export const CURRENCIES: Currency[] = ["UAH", "USD", "EUR", "PLN"];
+export { SUPPORTED_CURRENCIES as CURRENCIES } from "@/lib/currency-format";
 
 export const CATEGORIES: Category[] = [
   "streaming",

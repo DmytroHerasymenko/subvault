@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { CATEGORIES, CURRENCIES } from "@/lib/constants";
+import { formatCurrencyLabel } from "@/lib/currency-format";
 import { fetchDetectedPreferences } from "@/lib/profile-preferences";
 import {
   getServiceTemplates,
@@ -235,7 +236,7 @@ export function SubscriptionForm({
           >
             {CURRENCIES.map((c) => (
               <option key={c} value={c}>
-                {c}
+                {formatCurrencyLabel(c, locale)}
               </option>
             ))}
           </Select>

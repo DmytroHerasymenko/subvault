@@ -13,9 +13,10 @@ import {
   formatBillingDateDisplay,
   getEffectiveNextBillingDate,
 } from "@/lib/billing-date";
+import { MoneyAmount } from "@/components/money-amount";
 import { convertAmount } from "@/lib/exchange";
-import { formatMoney, monthlyAmount } from "@/lib/utils";
-import { toIntlLocale } from "@/lib/intl-locale";
+import { formatMoneyCompact, formatMoneyStandard } from "@/lib/currency-format";
+import { monthlyAmount } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/client";
 import type { Category, Subscription, SubscriptionFilters } from "@/lib/types";
 import { CATEGORIES } from "@/lib/constants";
@@ -40,7 +41,7 @@ function SubscriptionPriceColumn({
   billingPeriod,
   displayCurrency,
   converted,
-  intlLocale,
+  locale,
   perMonthLabel,
   perYearLabel,
   className,
@@ -50,7 +51,7 @@ function SubscriptionPriceColumn({
   billingPeriod: Subscription["billing_period"];
   displayCurrency: string;
   converted?: number;
-  intlLocale: string;
+  locale: string;
   perMonthLabel: string;
   perYearLabel: string;
   className?: string;
@@ -62,18 +63,18 @@ function SubscriptionPriceColumn({
   return (
     <div className={cn("w-[11rem] shrink-0 text-right tabular-nums", className)}>
       <p className="font-semibold leading-tight">
-        {formatMoney(amount, currency, intlLocale)}
+        {formatMoneyStandard(amount, currency, locale)}
         <span className="text-sm font-normal text-muted-foreground">{periodLabel}</span>
       </p>
       {billingPeriod === "yearly" && (
         <p className="text-xs leading-tight text-muted-foreground">
-          {formatMoney(monthlyInOriginal, currency, intlLocale)}
+          {formatMoneyStandard(monthlyInOriginal, currency, locale)}
           {perMonthLabel}
         </p>
       )}
       {showConversion && (
         <p className="text-sm leading-tight text-muted-foreground">
-          ≈ {formatMoney(converted, displayCurrency, intlLocale)}
+          ≈ {formatMoneyStandard(converted, displayCurrency, locale)}
           {perMonthLabel}
         </p>
       )}
@@ -104,8 +105,6 @@ export function DashboardClient({
     byCategory: Record<Category, number>;
     convertedById: Record<string, number>;
   } | null>(null);
-
-  const intlLocale = toIntlLocale(locale);
 
   useEffect(() => {
     setSubscriptions(initialSubs);
@@ -317,24 +316,24 @@ export function DashboardClient({
                   </div>
                   <div className="flex shrink-0 flex-col items-end gap-0.5">
                     <span className="text-sm font-semibold whitespace-nowrap tabular-nums">
-                      {formatMoney(Number(sub.amount), sub.currency, intlLocale)}
+                      {formatMoneyCompact(Number(sub.amount), sub.currency, locale)}
                       <span className="text-xs font-normal text-muted-foreground">
                         {sub.billing_period === "monthly" ? ts("perMonth") : ts("perYear")}
                       </span>
                     </span>
                     {sub.billing_period === "yearly" && (
                       <span className="text-xs whitespace-nowrap text-muted-foreground tabular-nums">
-                        {formatMoney(
+                        {formatMoneyCompact(
                           monthlyAmount(Number(sub.amount), sub.billing_period),
                           sub.currency,
-                          intlLocale,
+                          locale,
                         )}
                         {ts("perMonth")}
                       </span>
                     )}
                     {converted != null && sub.currency !== displayCurrency && (
                       <span className="text-xs whitespace-nowrap text-muted-foreground tabular-nums">
-                        ≈ {formatMoney(converted, displayCurrency, intlLocale)}
+                        ≈ {formatMoneyCompact(converted, displayCurrency, locale)}
                         {ts("perMonth")}
                       </span>
                     )}
@@ -367,7 +366,7 @@ export function DashboardClient({
                     billingPeriod={sub.billing_period}
                     displayCurrency={displayCurrency}
                     converted={converted}
-                    intlLocale={intlLocale}
+                    locale={locale}
                     perMonthLabel={ts("perMonth")}
                     perYearLabel={ts("perYear")}
                   />

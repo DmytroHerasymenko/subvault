@@ -1,12 +1,18 @@
+import { MoneyAmount } from "@/components/money-amount";
+import { formatMoneyCompact, formatMoneyStandard } from "@/lib/currency-format";
 import { Card, CardTitle, CardValue } from "@/components/ui/card";
+import type { Currency } from "@/lib/types";
+
+const DEMO_CURRENCY: Currency = "USD";
 
 const DEMO_SUBS = [
-  { name: "Netflix", meta: "Streaming · Active", amount: "15 USD/mo" },
-  { name: "ChatGPT Plus", meta: "AI · Active", amount: "20 USD/mo" },
-  { name: "Spotify", meta: "Streaming · Active", amount: "13 USD/mo" },
+  { name: "Netflix", meta: "Streaming · Active", amount: 15 },
+  { name: "ChatGPT Plus", meta: "AI · Active", amount: 20 },
+  { name: "Spotify", meta: "Streaming · Active", amount: 13 },
 ];
 
 export function LandingPreview({
+  locale,
   monthlyLabel,
   yearlyLabel,
   activeLabel,
@@ -14,7 +20,9 @@ export function LandingPreview({
   streamingLabel,
   aiLabel,
   softwareLabel,
+  perMonthLabel,
 }: {
+  locale: string;
   monthlyLabel: string;
   yearlyLabel: string;
   activeLabel: string;
@@ -22,6 +30,7 @@ export function LandingPreview({
   streamingLabel: string;
   aiLabel: string;
   softwareLabel: string;
+  perMonthLabel: string;
 }) {
   return (
     <div
@@ -31,11 +40,15 @@ export function LandingPreview({
       <div className="grid grid-cols-3 gap-2">
         <Card className="p-2.5">
           <CardTitle className="text-[10px] leading-tight">{monthlyLabel}</CardTitle>
-          <CardValue className="mt-1 text-sm leading-tight">42,25 USD</CardValue>
+          <CardValue className="mt-1 text-sm leading-tight">
+            <MoneyAmount amount={42.25} currency={DEMO_CURRENCY} locale={locale} />
+          </CardValue>
         </Card>
         <Card className="p-2.5">
           <CardTitle className="text-[10px] leading-tight">{yearlyLabel}</CardTitle>
-          <CardValue className="mt-1 text-sm leading-tight">507 USD</CardValue>
+          <CardValue className="mt-1 text-sm leading-tight">
+            <MoneyAmount amount={507} currency={DEMO_CURRENCY} locale={locale} />
+          </CardValue>
         </Card>
         <Card className="p-2.5">
           <CardTitle className="text-[10px] leading-tight">{activeLabel}</CardTitle>
@@ -47,14 +60,19 @@ export function LandingPreview({
         <CardTitle className="mb-2 text-xs">{byCategoryLabel}</CardTitle>
         <div className="space-y-2">
           {[
-            { label: streamingLabel, width: "72%", amount: "28 USD" },
-            { label: aiLabel, width: "55%", amount: "20 USD" },
-            { label: softwareLabel, width: "30%", amount: "10 USD" },
+            { label: streamingLabel, width: "72%", amount: 28 },
+            { label: aiLabel, width: "55%", amount: 20 },
+            { label: softwareLabel, width: "30%", amount: 10 },
           ].map((row) => (
             <div key={row.label}>
               <div className="mb-1 flex justify-between text-xs">
                 <span>{row.label}</span>
-                <span className="font-medium">{row.amount}</span>
+                <span className="font-medium sm:hidden">
+                  {formatMoneyCompact(row.amount, DEMO_CURRENCY, locale)}
+                </span>
+                <span className="hidden font-medium sm:inline">
+                  {formatMoneyStandard(row.amount, DEMO_CURRENCY, locale)}
+                </span>
               </div>
               <div className="h-1.5 rounded-full bg-muted">
                 <div className="h-1.5 rounded-full bg-primary" style={{ width: row.width }} />
@@ -71,7 +89,16 @@ export function LandingPreview({
               <p className="truncate text-sm font-medium">{sub.name}</p>
               <p className="truncate text-xs text-muted-foreground">{sub.meta}</p>
             </div>
-            <span className="shrink-0 text-xs font-semibold">{sub.amount}</span>
+            <span className="shrink-0 text-xs font-semibold tabular-nums">
+              <span className="sm:hidden">
+                {formatMoneyCompact(sub.amount, DEMO_CURRENCY, locale)}
+                {perMonthLabel}
+              </span>
+              <span className="hidden sm:inline">
+                {formatMoneyStandard(sub.amount, DEMO_CURRENCY, locale)}
+                {perMonthLabel}
+              </span>
+            </span>
           </li>
         ))}
       </ul>

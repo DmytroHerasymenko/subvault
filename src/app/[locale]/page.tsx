@@ -12,6 +12,7 @@ export default async function LandingPage({
   const t = await getTranslations("landing");
   const td = await getTranslations("dashboard");
   const tc = await getTranslations("categories");
+  const ts = await getTranslations("subscription");
 
   const features = [
     { title: t("feature1Title"), desc: t("feature1Desc") },
@@ -51,6 +52,7 @@ export default async function LandingPage({
         </div>
 
         <LandingPreview
+          locale={locale}
           monthlyLabel={td("totalMonthly")}
           yearlyLabel={td("totalYearly")}
           activeLabel={td("activeCountLabel")}
@@ -58,6 +60,7 @@ export default async function LandingPage({
           streamingLabel={tc("streaming")}
           aiLabel={tc("ai")}
           softwareLabel={tc("software")}
+          perMonthLabel={ts("perMonth")}
         />
       </section>
 

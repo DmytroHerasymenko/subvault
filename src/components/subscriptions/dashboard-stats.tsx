@@ -1,9 +1,8 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { MoneyAmount } from "@/components/money-amount";
 import { Card, CardTitle, CardValue } from "@/components/ui/card";
-import { formatMoney } from "@/lib/utils";
-import { toIntlLocale } from "@/lib/intl-locale";
 import type { Category, Currency } from "@/lib/types";
 import { CATEGORIES } from "@/lib/constants";
 
@@ -24,7 +23,6 @@ export function DashboardStats({
 }) {
   const t = useTranslations("dashboard");
   const tc = useTranslations("categories");
-  const intlLocale = toIntlLocale(locale);
 
   const maxCategory = Math.max(...Object.values(byCategory), 1);
   const statCardClass = "p-2.5 sm:p-5";
@@ -37,7 +35,7 @@ export function DashboardStats({
             {t("totalMonthly")}
           </CardTitle>
           <CardValue className="mt-0.5 text-sm leading-tight sm:mt-1 sm:text-2xl">
-            {formatMoney(totalMonthly, currency, intlLocale)}
+            <MoneyAmount amount={totalMonthly} currency={currency} locale={locale} />
           </CardValue>
         </Card>
         <Card className={statCardClass}>
@@ -45,7 +43,7 @@ export function DashboardStats({
             {t("totalYearly")}
           </CardTitle>
           <CardValue className="mt-0.5 text-sm leading-tight sm:mt-1 sm:text-2xl">
-            {formatMoney(totalYearly, currency, intlLocale)}
+            <MoneyAmount amount={totalYearly} currency={currency} locale={locale} />
           </CardValue>
         </Card>
         <Card className={statCardClass}>
@@ -69,9 +67,12 @@ export function DashboardStats({
               <div key={cat}>
                 <div className="mb-1 flex justify-between gap-2 text-xs sm:text-sm">
                   <span className="truncate">{tc(cat)}</span>
-                  <span className="shrink-0 font-medium">
-                    {formatMoney(amount, currency, intlLocale)}
-                  </span>
+                  <MoneyAmount
+                    amount={amount}
+                    currency={currency}
+                    locale={locale}
+                    className="shrink-0 font-medium"
+                  />
                 </div>
                 <div className="h-1.5 rounded-full bg-muted sm:h-2">
                   <div

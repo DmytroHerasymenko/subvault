@@ -96,12 +96,23 @@ export function Header({
             <LanguageSwitcher selectClassName={touchSelectClass} />
 
             {userId && (
-              <CurrencySelect
-                value={currency}
-                onChange={setCurrency}
-                className={currencySelectClass}
-                aria-label={tSettings("displayCurrency")}
-              />
+              <>
+                <CurrencySelect
+                  value={currency}
+                  onChange={setCurrency}
+                  className={cn(currencySelectClass, "md:hidden")}
+                  compact
+                  locale={locale}
+                  aria-label={tSettings("displayCurrency")}
+                />
+                <CurrencySelect
+                  value={currency}
+                  onChange={setCurrency}
+                  className={cn(currencySelectClass, "hidden md:block")}
+                  locale={locale}
+                  aria-label={tSettings("displayCurrency")}
+                />
+              </>
             )}
 
             <NavIconLink href={`/${locale}/settings`} label={t("settings")}>
