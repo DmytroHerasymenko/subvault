@@ -6,8 +6,8 @@ import { Select } from "@/components/ui/select";
 import { createClient } from "@/lib/supabase/client";
 import { locales, type AppLocale } from "@/i18n/config";
 import {
-  formatLocaleFlagOnly,
   formatLocaleOption,
+  formatLocaleOptionShort,
 } from "@/i18n/locale-meta";
 import { cn } from "@/lib/utils";
 
@@ -51,7 +51,7 @@ export function LanguageSwitcher({ selectClassName }: { selectClassName?: string
       >
         {locales.map((l) => (
           <option key={l} value={l}>
-            {formatLocaleFlagOnly(l)}
+            {formatLocaleOptionShort(l)}
           </option>
         ))}
       </Select>

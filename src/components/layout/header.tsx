@@ -17,10 +17,16 @@ const navIconClass =
   "inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground";
 
 const touchSelectClass =
-  "h-11 min-h-11 shrink-0 py-2 text-sm font-medium sm:pl-2.5 sm:pr-8";
+  "h-11 min-h-11 w-full max-w-[4.5rem] shrink-0 py-2 pl-1.5 pr-7 text-xs font-medium sm:w-auto sm:max-w-none sm:pl-2.5 sm:pr-8 sm:text-sm";
 
-const mobileSelectClass =
-  "h-11 w-10 min-w-10 max-w-10 shrink-0 px-0.5 py-2 pr-6 text-center text-xs sm:w-auto sm:min-w-0 sm:max-w-none sm:text-sm";
+const currencySelectClass =
+  "h-11 min-h-11 w-full max-w-[4rem] shrink-0 py-2 pl-1.5 pr-7 text-xs font-medium sm:w-auto sm:min-w-[4.5rem] sm:max-w-[5.5rem] sm:pl-2.5 sm:pr-8 sm:text-sm";
+
+const navGroupClass =
+  "grid min-w-0 flex-1 place-items-center gap-0.5 sm:flex sm:flex-nowrap sm:justify-end sm:gap-2 md:gap-3";
+
+const guestNavGroupClass =
+  "grid min-w-0 flex-1 grid-cols-3 place-items-center gap-1 sm:flex sm:flex-nowrap sm:justify-end sm:gap-2";
 
 function NavIconLink({
   href,
@@ -77,24 +83,23 @@ export function Header({
         </Link>
 
         {userEmail ? (
-          <div className="flex min-w-0 flex-1 flex-nowrap items-center justify-end gap-0.5 sm:gap-2 md:gap-3">
+          <div
+            className={cn(
+              navGroupClass,
+              userId ? "grid-cols-5" : "grid-cols-4",
+            )}
+          >
             <NavIconLink href={`/${locale}/dashboard`} label={t("dashboard")}>
               <Home className="h-5 w-5" />
             </NavIconLink>
 
-            <LanguageSwitcher
-              selectClassName={cn(touchSelectClass, mobileSelectClass)}
-            />
+            <LanguageSwitcher selectClassName={touchSelectClass} />
 
             {userId && (
               <CurrencySelect
                 value={currency}
                 onChange={setCurrency}
-                className={cn(
-                  touchSelectClass,
-                  mobileSelectClass,
-                  "sm:min-w-[4.5rem] sm:max-w-[5.5rem]",
-                )}
+                className={currencySelectClass}
                 aria-label={tSettings("displayCurrency")}
               />
             )}
@@ -110,7 +115,7 @@ export function Header({
             <Button
               variant="outline"
               size="sm"
-              className="h-11 min-w-11 shrink-0 px-0 sm:px-3"
+              className="h-11 w-11 shrink-0 px-0 sm:min-w-11 sm:px-3"
               onClick={logout}
               title={t("logout")}
               aria-label={t("logout")}
@@ -120,10 +125,8 @@ export function Header({
             </Button>
           </div>
         ) : (
-          <div className="flex min-w-0 flex-1 flex-nowrap items-center justify-end gap-1 sm:gap-2">
-            <LanguageSwitcher
-              selectClassName={cn(touchSelectClass, mobileSelectClass)}
-            />
+          <div className={guestNavGroupClass}>
+            <LanguageSwitcher selectClassName={touchSelectClass} />
             <Link href={`/${locale}/login`}>
               <Button variant="ghost" size="sm" className="h-11 shrink-0 px-2 sm:px-3">
                 {t("login")}
