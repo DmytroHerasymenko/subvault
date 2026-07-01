@@ -10,6 +10,7 @@ import { SubscriptionFiltersBar } from "./filters";
 import { DashboardStats } from "./dashboard-stats";
 import { FREE_TIER_LIMIT } from "@/lib/constants";
 import {
+  formatBillingDateCompact,
   formatBillingDateDisplay,
   getEffectiveNextBillingDate,
 } from "@/lib/billing-date";
@@ -259,19 +260,45 @@ export function DashboardClient({
             const periodLabel =
               sub.billing_period === "monthly" ? ts("perMonth") : ts("perYear");
             const converted = rates?.convertedById[sub.id];
+            const monthlyInOriginal = monthlyAmount(Number(sub.amount), sub.billing_period);
+            const compactDate = nextBillingDate
+              ? formatBillingDateCompact(nextBillingDate)
+              : null;
+            const metaParts = [
+              tc(sub.category),
+              ts(sub.status),
+              compactDate,
+            ].filter(Boolean);
 
             return (
               <li key={sub.id} className={cn(isEditing && "bg-muted/30")}>
-                <div className="flex items-center gap-2 px-3 py-2.5 sm:hidden">
+                <div className="flex items-start gap-2 px-3 py-2.5 sm:hidden">
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-sm font-medium">{sub.name}</p>
+                    <p className="truncate text-xs text-muted-foreground">
+                      {metaParts.join(" · ")}
+                    </p>
                   </div>
-                  <span className="shrink-0 text-sm font-semibold whitespace-nowrap">
-                    {formatMoney(Number(sub.amount), sub.currency, intlLocale)}
-                    <span className="text-xs font-normal text-muted-foreground">
-                      {periodLabel}
+                  <div className="flex shrink-0 flex-col items-end gap-0.5">
+                    <span className="text-sm font-semibold whitespace-nowrap">
+                      {formatMoney(Number(sub.amount), sub.currency, intlLocale)}
+                      <span className="text-xs font-normal text-muted-foreground">
+                        {periodLabel}
+                      </span>
                     </span>
-                  </span>
+                    {sub.billing_period === "yearly" && (
+                      <span className="text-xs whitespace-nowrap text-muted-foreground">
+                        {formatMoney(monthlyInOriginal, sub.currency, intlLocale)}
+                        {ts("perMonth")}
+                      </span>
+                    )}
+                    {converted != null && sub.currency !== displayCurrency && (
+                      <span className="text-xs whitespace-nowrap text-muted-foreground">
+                        ≈ {formatMoney(converted, displayCurrency, intlLocale)}
+                        {ts("perMonth")}
+                      </span>
+                    )}
+                  </div>
                   <Button
                     variant="outline"
                     size="sm"
