@@ -80,27 +80,30 @@ order by 1 desc;
 -- =============================================================================
 
 -- Distribution: how many subscriptions each user has
-select
-  case
-    when cnt = 0 then '0'
-    when cnt between 1 and 3 then '1-3'
-    when cnt between 4 and 9 then '4-9'
-    when cnt between 10 and 19 then '10-19'
-    else '20+'
-  end as subscriptions_per_user,
-  count(*) as users
+select subscriptions_per_user, users
 from (
-  select p.id, coalesce(s.cnt, 0) as cnt
-  from public.profiles p
-  left join (
-    select user_id, count(*) as cnt
-    from public.subscriptions
-    group by user_id
-  ) s on s.user_id = p.id
-) t
-group by 1
+  select
+    case
+      when cnt = 0 then '0'
+      when cnt between 1 and 3 then '1-3'
+      when cnt between 4 and 9 then '4-9'
+      when cnt between 10 and 19 then '10-19'
+      else '20+'
+    end as subscriptions_per_user,
+    count(*) as users
+  from (
+    select p.id, coalesce(s.cnt, 0) as cnt
+    from public.profiles p
+    left join (
+      select user_id, count(*) as cnt
+      from public.subscriptions
+      group by user_id
+    ) s on s.user_id = p.id
+  ) t
+  group by 1
+) distribution
 order by
-  case subscriptions_per_user
+  case distribution.subscriptions_per_user
     when '0' then 0
     when '1-3' then 1
     when '4-9' then 2
