@@ -10,9 +10,32 @@ import { Button } from "@/components/ui/button";
 import { APP_NAME } from "@/lib/constants";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
+import { cn } from "@/lib/utils";
 
-const compactSelectClass =
-  "h-8 w-auto min-w-[4.25rem] max-w-[5.5rem] py-1 pl-1.5 pr-6 text-xs font-medium sm:min-w-[4.75rem]";
+/** Min 44×44px touch target (Apple HIG). */
+const navIconClass =
+  "inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground";
+
+const touchSelectClass =
+  "h-11 min-h-11 shrink-0 py-2 pl-2.5 pr-8 text-sm font-medium";
+
+function NavIconLink({
+  href,
+  label,
+  children,
+  className,
+}: {
+  href: string;
+  label: string;
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <Link href={href} title={label} aria-label={label} className={cn(navIconClass, className)}>
+      {children}
+    </Link>
+  );
+}
 
 export function Header({
   locale,
@@ -37,68 +60,65 @@ export function Header({
 
   return (
     <header className="border-b border-border bg-card/80 backdrop-blur">
-      <div className="mx-auto flex max-w-5xl items-center gap-2 px-3 py-2 sm:gap-4 sm:px-4 sm:py-3">
+      <div className="mx-auto flex max-w-5xl flex-nowrap items-center gap-3 px-3 py-2 sm:px-4 sm:py-2.5">
         <Link
           href={userEmail ? `/${locale}/dashboard` : `/${locale}`}
-          className="shrink-0 text-base font-bold text-primary sm:text-lg"
+          className="shrink-0 pr-1 text-base font-bold text-primary sm:text-lg"
         >
           {APP_NAME}
         </Link>
-        <div className="flex min-w-0 flex-1 flex-nowrap items-center justify-end gap-1 sm:gap-2 md:gap-3">
-          <LanguageSwitcher />
-          {userId && (
-            <CurrencySelect
-              value={currency}
-              onChange={setCurrency}
-              className={compactSelectClass}
-              aria-label={tSettings("displayCurrency")}
-            />
-          )}
-          {userEmail ? (
-            <>
-              <Link
-                href={`/${locale}/dashboard`}
-                className="inline-flex shrink-0 items-center gap-1 text-muted-foreground hover:text-foreground"
-                title={t("dashboard")}
-              >
-                <Home className="h-4 w-4" />
-                <span className="hidden md:inline text-sm">{t("dashboard")}</span>
-              </Link>
-              <Link
-                href={`/${locale}/settings`}
-                className="inline-flex shrink-0 items-center gap-1 text-muted-foreground hover:text-foreground"
-                title={t("settings")}
-              >
-                <Settings className="h-4 w-4" />
-                <span className="hidden md:inline text-sm">{t("settings")}</span>
-              </Link>
-              <span className="hidden text-sm text-muted-foreground lg:inline">{userEmail}</span>
-              <Button
-                variant="outline"
-                size="sm"
-                className="h-8 shrink-0 px-2 sm:px-3"
-                onClick={logout}
-                title={t("logout")}
-              >
-                <LogOut className="h-4 w-4 sm:mr-1" />
-                <span className="hidden sm:inline">{t("logout")}</span>
+
+        {userEmail ? (
+          <>
+            <NavIconLink href={`/${locale}/dashboard`} label={t("dashboard")}>
+              <Home className="h-5 w-5" />
+            </NavIconLink>
+
+            <LanguageSwitcher selectClassName={touchSelectClass} />
+
+            {userId && (
+              <CurrencySelect
+                value={currency}
+                onChange={setCurrency}
+                className={`${touchSelectClass} min-w-[4.75rem] max-w-[6rem]`}
+                aria-label={tSettings("displayCurrency")}
+              />
+            )}
+
+            <NavIconLink href={`/${locale}/settings`} label={t("settings")}>
+              <Settings className="h-5 w-5" />
+            </NavIconLink>
+
+            <span className="hidden shrink-0 text-sm text-muted-foreground lg:inline">{userEmail}</span>
+
+            <Button
+              variant="outline"
+              size="sm"
+              className="h-11 min-w-11 shrink-0 px-0 sm:px-3"
+              onClick={logout}
+              title={t("logout")}
+              aria-label={t("logout")}
+            >
+              <LogOut className="h-5 w-5 sm:mr-1.5" />
+              <span className="hidden sm:inline">{t("logout")}</span>
+            </Button>
+          </>
+        ) : (
+          <>
+            <div className="flex-1" />
+            <LanguageSwitcher selectClassName={touchSelectClass} />
+            <Link href={`/${locale}/login`}>
+              <Button variant="ghost" size="sm" className="h-11 min-w-11 px-3">
+                {t("login")}
               </Button>
-            </>
-          ) : (
-            <>
-              <Link href={`/${locale}/login`}>
-                <Button variant="ghost" size="sm" className="h-8 px-2 sm:px-3">
-                  {t("login")}
-                </Button>
-              </Link>
-              <Link href={`/${locale}/signup`}>
-                <Button size="sm" className="h-8 px-2 sm:px-3">
-                  {t("signup")}
-                </Button>
-              </Link>
-            </>
-          )}
-        </div>
+            </Link>
+            <Link href={`/${locale}/signup`}>
+              <Button size="sm" className="h-11 min-w-11 px-3">
+                {t("signup")}
+              </Button>
+            </Link>
+          </>
+        )}
       </div>
     </header>
   );

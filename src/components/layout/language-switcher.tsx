@@ -6,14 +6,16 @@ import { Select } from "@/components/ui/select";
 import { createClient } from "@/lib/supabase/client";
 import { locales, type AppLocale } from "@/i18n/config";
 import { formatLocaleOption, formatLocaleOptionShort } from "@/i18n/locale-meta";
+import { cn } from "@/lib/utils";
 
-const compactSelectClass =
-  "h-8 w-auto shrink-0 py-1 pl-1.5 pr-6 text-xs font-medium";
+const defaultSelectClass =
+  "h-11 min-h-11 w-auto shrink-0 py-2 pl-2.5 pr-8 text-sm font-medium";
 
-export function LanguageSwitcher() {
+export function LanguageSwitcher({ selectClassName }: { selectClassName?: string }) {
   const locale = useLocale() as AppLocale;
   const pathname = usePathname();
   const router = useRouter();
+  const selectClass = cn(defaultSelectClass, selectClassName);
 
   async function switchLocale(next: string) {
     if (next === locale) return;
@@ -41,7 +43,7 @@ export function LanguageSwitcher() {
       <Select
         value={locale}
         onChange={(e) => void switchLocale(e.target.value)}
-        className={`${compactSelectClass} min-w-[4.25rem] max-w-[5rem] md:hidden`}
+        className={cn(selectClass, "min-w-[5rem] max-w-[5.5rem] md:hidden")}
         aria-label="Language"
       >
         {locales.map((l) => (
@@ -53,7 +55,7 @@ export function LanguageSwitcher() {
       <Select
         value={locale}
         onChange={(e) => void switchLocale(e.target.value)}
-        className={`${compactSelectClass} hidden min-w-[9.5rem] md:block`}
+        className={cn(selectClass, "hidden min-w-[10rem] md:block")}
         aria-label="Language"
       >
         {locales.map((l) => (
