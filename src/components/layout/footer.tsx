@@ -13,12 +13,15 @@ export async function Footer({ locale }: { locale: string }) {
       <div
         className={cn(
           PAGE_CONTAINER,
-          "flex flex-col items-center gap-4 py-8 text-sm text-muted-foreground sm:flex-row sm:justify-between",
+          "flex flex-col items-center gap-3 py-8 text-sm text-muted-foreground sm:flex-row sm:flex-wrap sm:items-center sm:justify-between",
         )}
       >
-        <div className="flex flex-col items-center gap-1 sm:items-start">
-          <p>{t("rights", { year })}</p>
-          <p>
+        <p className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 sm:justify-start">
+          <span>{t("rights", { year })}</span>
+          <span aria-hidden className="text-border">
+            ·
+          </span>
+          <span>
             {t("contact")}{" "}
             <a
               href={`mailto:${SUPPORT_EMAIL}`}
@@ -26,9 +29,9 @@ export async function Footer({ locale }: { locale: string }) {
             >
               {SUPPORT_EMAIL}
             </a>
-          </p>
-        </div>
-        <nav className="flex gap-4">
+          </span>
+        </p>
+        <nav className="flex shrink-0 gap-4">
           <Link href={`/${locale}/privacy`} className="hover:text-foreground">
             {t("privacy")}
           </Link>
