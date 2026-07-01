@@ -35,6 +35,53 @@ function startEdit(sub: Subscription, setShowForm: (v: boolean) => void, setEdit
   setEditing(sub);
 }
 
+function SubscriptionPriceColumn({
+  amount,
+  currency,
+  billingPeriod,
+  displayCurrency,
+  converted,
+  intlLocale,
+  perMonthLabel,
+  perYearLabel,
+  className,
+}: {
+  amount: number;
+  currency: string;
+  billingPeriod: Subscription["billing_period"];
+  displayCurrency: string;
+  converted?: number;
+  intlLocale: string;
+  perMonthLabel: string;
+  perYearLabel: string;
+  className?: string;
+}) {
+  const periodLabel = billingPeriod === "monthly" ? perMonthLabel : perYearLabel;
+  const monthlyInOriginal = monthlyAmount(amount, billingPeriod);
+  const showConversion = converted != null && currency !== displayCurrency;
+
+  return (
+    <div className={cn("w-[11rem] shrink-0 text-right tabular-nums", className)}>
+      <p className="font-semibold leading-tight">
+        {formatMoney(amount, currency, intlLocale)}
+        <span className="text-sm font-normal text-muted-foreground">{periodLabel}</span>
+      </p>
+      {billingPeriod === "yearly" && (
+        <p className="text-xs leading-tight text-muted-foreground">
+          {formatMoney(monthlyInOriginal, currency, intlLocale)}
+          {perMonthLabel}
+        </p>
+      )}
+      {showConversion && (
+        <p className="text-sm leading-tight text-muted-foreground">
+          ≈ {formatMoney(converted, displayCurrency, intlLocale)}
+          {perMonthLabel}
+        </p>
+      )}
+    </div>
+  );
+}
+
 export function DashboardClient({
   locale,
   userId,
@@ -257,10 +304,7 @@ export function DashboardClient({
               sub.billing_period,
             );
             const isEditing = editing?.id === sub.id;
-            const periodLabel =
-              sub.billing_period === "monthly" ? ts("perMonth") : ts("perYear");
             const converted = rates?.convertedById[sub.id];
-            const monthlyInOriginal = monthlyAmount(Number(sub.amount), sub.billing_period);
             const compactDate = nextBillingDate
               ? formatBillingDateCompact(nextBillingDate)
               : null;
@@ -280,20 +324,24 @@ export function DashboardClient({
                     </p>
                   </div>
                   <div className="flex shrink-0 flex-col items-end gap-0.5">
-                    <span className="text-sm font-semibold whitespace-nowrap">
+                    <span className="text-sm font-semibold whitespace-nowrap tabular-nums">
                       {formatMoney(Number(sub.amount), sub.currency, intlLocale)}
                       <span className="text-xs font-normal text-muted-foreground">
-                        {periodLabel}
+                        {sub.billing_period === "monthly" ? ts("perMonth") : ts("perYear")}
                       </span>
                     </span>
                     {sub.billing_period === "yearly" && (
-                      <span className="text-xs whitespace-nowrap text-muted-foreground">
-                        {formatMoney(monthlyInOriginal, sub.currency, intlLocale)}
+                      <span className="text-xs whitespace-nowrap text-muted-foreground tabular-nums">
+                        {formatMoney(
+                          monthlyAmount(Number(sub.amount), sub.billing_period),
+                          sub.currency,
+                          intlLocale,
+                        )}
                         {ts("perMonth")}
                       </span>
                     )}
                     {converted != null && sub.currency !== displayCurrency && (
-                      <span className="text-xs whitespace-nowrap text-muted-foreground">
+                      <span className="text-xs whitespace-nowrap text-muted-foreground tabular-nums">
                         ≈ {formatMoney(converted, displayCurrency, intlLocale)}
                         {ts("perMonth")}
                       </span>
@@ -310,8 +358,8 @@ export function DashboardClient({
                   </Button>
                 </div>
 
-                <div className="hidden items-center justify-between gap-3 px-4 py-3 sm:flex">
-                  <div className="min-w-0">
+                <div className="hidden items-center gap-4 px-4 py-3 sm:flex">
+                  <div className="min-w-0 flex-1">
                     <p className="font-medium">{sub.name}</p>
                     <p className="text-sm text-muted-foreground">
                       {tc(sub.category)} · {ts(sub.status)}
@@ -321,27 +369,24 @@ export function DashboardClient({
                         })}`}
                     </p>
                   </div>
-                  <div className="flex shrink-0 items-center gap-3">
-                    <span className="font-semibold">
-                      {formatMoney(Number(sub.amount), sub.currency, intlLocale)}
-                      <span className="text-sm font-normal text-muted-foreground">
-                        {periodLabel}
-                      </span>
-                    </span>
-                    {converted != null && sub.currency !== displayCurrency && (
-                      <span className="text-sm text-muted-foreground">
-                        ≈ {formatMoney(converted, displayCurrency, intlLocale)}
-                        {ts("perMonth")}
-                      </span>
-                    )}
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => startEdit(sub, setShowForm, setEditing)}
-                    >
-                      {t("editSubscription")}
-                    </Button>
-                  </div>
+                  <SubscriptionPriceColumn
+                    amount={Number(sub.amount)}
+                    currency={sub.currency}
+                    billingPeriod={sub.billing_period}
+                    displayCurrency={displayCurrency}
+                    converted={converted}
+                    intlLocale={intlLocale}
+                    perMonthLabel={ts("perMonth")}
+                    perYearLabel={ts("perYear")}
+                  />
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="shrink-0"
+                    onClick={() => startEdit(sub, setShowForm, setEditing)}
+                  >
+                    {t("editSubscription")}
+                  </Button>
                 </div>
 
                 {isEditing && (
